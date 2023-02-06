@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Crear cursa') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('race.create.action') }}">
+                    <form method="POST" action="{{ route('race.store') }}">
                         @csrf
 
                         <div class="row mb-3">

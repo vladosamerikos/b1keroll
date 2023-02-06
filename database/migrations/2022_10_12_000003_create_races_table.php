@@ -15,13 +15,14 @@ class CreateRacesTable extends Migration
     {
         Schema::create('races', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
             $table->string('description');
             $table->string('unevenness');
             // $table->string('map_img');
             $table->integer('number_of_competitors');
             $table->float('length');
             $table->date('start_date');
-            $table->date('start_time');
+            $table->time('start_time');
             $table->string('start_point');
             // $table->string('promotional_poster');
             $table->float('price');
