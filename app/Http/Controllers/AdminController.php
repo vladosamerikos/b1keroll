@@ -44,7 +44,7 @@ class AdminController extends Controller
             'name'=>request('name'),
             // 'logo'=>request('logo'),
             'address'=>request('address'),
-            'price_per_race'=>request('price_per_race')
+            'main_plain'=>request('main_plain')
         ]);
 
     }
@@ -64,6 +64,24 @@ class AdminController extends Controller
             'price_per_race'=>request('price_per_race')
         ]);
 
+    }
+
+    public function insurancesList(){
+        $insurances = Insurance::get();
+        return view('admin.insurancelist',
+        [
+            'insurances'=>$insurances
+        ]);
+        
+    }
+
+    public function sponsorsList(){
+        $sponsors = Sponsor::get();
+        return view('admin.sponsorlist',
+        [
+            'sponsors'=>$sponsors
+        ]);
+        
     }
 
 

@@ -21,11 +21,15 @@ Route::get('/', function () {
 Route::get('/admin/race/create', [App\Http\Controllers\AdminController::class, 'createRaceForm'])->name('race.create');
 Route::post('/admin/race/store', [App\Http\Controllers\AdminController::class, 'createRaceStore'])->name('race.store');
 
-Route::get('/admin/sposnor/create', [App\Http\Controllers\AdminController::class, 'createSponsorForm'])->name('sponsor.create');
+Route::get('/admin/sponsor/create', [App\Http\Controllers\AdminController::class, 'createSponsorForm'])->name('sponsor.create');
 Route::post('/admin/sponsor/store', [App\Http\Controllers\AdminController::class, 'createSponsorStore'])->name('sponsor.store');
+Route::get('/admin/sponsors', [App\Http\Controllers\AdminController::class, 'sponsorsList'])->name('sponsors.list');
+
 
 Route::get('/admin/insurance/create', [App\Http\Controllers\AdminController::class, 'createInsuranceForm'])->name('insurance.create');
 Route::post('/admin/insurance/store', [App\Http\Controllers\AdminController::class, 'createInsuranceStore'])->name('insurance.store');
+Route::get('/admin/insurances', [App\Http\Controllers\AdminController::class, 'insurancesList'])->name('insurances.list');
+
 
 
 Auth::routes();
