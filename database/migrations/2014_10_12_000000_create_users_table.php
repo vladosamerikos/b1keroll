@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('sex');
             $table->integer('age');
             $table->string('address');
+            $table->boolean('role')->default('0');
             $table->date('birth_date');
             $table->string('skill');
             $table->string('federate_number')->nullable();
