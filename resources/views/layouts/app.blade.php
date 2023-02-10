@@ -32,43 +32,47 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto">
-                        @if (Auth::user()->role == 1)
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                              <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Carreras
-                                </a>
-                                <ul class="dropdown-menu">
-                                  <li><a class="dropdown-item" href="{{ route('race.create') }}">Crear</a></li>
-                                  {{-- <li><a class="dropdown-item" href="{{ route('race.list') }}">Administrar</a></li> --}}
+                        @guest
+                        @else
+                           
+                            @if (Auth::user()->role == '1')
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Carreras
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{ route('race.create') }}">Crear</a></li>
+                                    {{-- <li><a class="dropdown-item" href="{{ route('race.list') }}">Administrar</a></li> --}}
+                                    </ul>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Patrocinadores
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{ route('sponsor.create') }}">Crear</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('sponsors.list') }}">Administrar</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="{{ route('insurances.list') }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Seguros
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{ route('insurance.create') }}">Crear</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('insurances.list') }}">Administrar</a></li>
+                                    </ul>
+                                </li>
                                 </ul>
-                              </li>
-                              <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Patrocinadores
-                                </a>
-                                <ul class="dropdown-menu">
-                                  <li><a class="dropdown-item" href="{{ route('sponsor.create') }}">Crear</a></li>
-                                  <li><a class="dropdown-item" href="{{ route('sponsors.list') }}">Administrar</a></li>
-                                </ul>
-                              </li>
-                              <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="{{ route('insurances.list') }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Seguros
-                                </a>
-                                <ul class="dropdown-menu">
-                                  <li><a class="dropdown-item" href="{{ route('insurance.create') }}">Crear</a></li>
-                                  <li><a class="dropdown-item" href="{{ route('insurances.list') }}">Administrar</a></li>
-                                </ul>
-                              </li>
-                            </ul>
-                          </div>
+                            </div>
 
-                        @endif
-                        @if (Auth::user()->role == 0)
-                            <a href="">Soy user</a>
-                        @endif
+                            @endif
+                            @if (Auth::user()->role == '0')
+                                <a href="">Soy user</a>
+                            @endif
+                        @endguest
                     </ul>
 
                     <ul class="navbar-nav ms-auto">
