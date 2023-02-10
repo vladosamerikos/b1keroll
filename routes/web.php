@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use PHPUnit\TextUI\XmlConfiguration\Group;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,18 +19,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/admin/race/create', [App\Http\Controllers\AdminController::class, 'createRaceForm'])->name('race.create');
-Route::post('/admin/race/store', [App\Http\Controllers\AdminController::class, 'createRaceStore'])->name('race.store');
 
-Route::get('/admin/sponsor/create', [App\Http\Controllers\AdminController::class, 'createSponsorForm'])->name('sponsor.create');
-Route::post('/admin/sponsor/store', [App\Http\Controllers\AdminController::class, 'createSponsorStore'])->name('sponsor.store');
-Route::get('/admin/sponsors', [App\Http\Controllers\AdminController::class, 'sponsorsList'])->name('sponsors.list');
-
+Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function() {
+    Route::get('/race/create', [App\Http\Controllers\AdminController::class, 'createRaceForm'])->name('race.create');
+    Route::post('/race/store', [App\Http\Controllers\AdminController::class, 'createRaceStore'])->name('race.store');
+    Route::get('/sposnor/create', [App\Http\Controllers\AdminController::class, 'createSponsorForm'])->name('sponsor.create');
+    Route::post('/sponsor/store', [App\Http\Controllers\AdminController::class, 'createSponsorStore'])->name('sponsor.store');
+    Route::get('/insurance/create', [App\Http\Controllers\AdminController::class, 'createInsuranceForm'])->name('insurance.create');
+    Route::post('/insurance/store', [App\Http\Controllers\AdminController::class, 'createInsuranceStore'])->name('insurance.store');
+});
 
 Route::get('/admin/insurance/create', [App\Http\Controllers\AdminController::class, 'createInsuranceForm'])->name('insurance.create');
 Route::post('/admin/insurance/store', [App\Http\Controllers\AdminController::class, 'createInsuranceStore'])->name('insurance.store');
-Route::get('/admin/insurances', [App\Http\Controllers\AdminController::class, 'insurancesList'])->name('insurances.list');
-
 
 
 Auth::routes();
