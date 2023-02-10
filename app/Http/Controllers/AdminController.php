@@ -85,6 +85,15 @@ class AdminController extends Controller
     }
 
 
+    public function racesList(){
+        $races = Race::get();
+        return view('admin.racelist',
+        [
+            'races'=>$races
+        ]);
+        
+    }
+
 
 
 
