@@ -19,11 +19,11 @@
                         <th>{{$sponsor->cif}}</th>
                         <td>{{$sponsor->name}}</td>
                         <td>{{$sponsor->address}}</td>
-                        <td>{{$sponsor->main_plain == 1){
-                            echo "Si"
+                        <td><?php if($sponsor->main_plain == 1){
+                            echo"Si";
                         }else{
-                            echo "No"
-                        }}}</td>
+                           echo"No";
+                        }?></td>
                     </tr>
                 @endforeach
               </tbody>

@@ -23,14 +23,19 @@ Route::get('/', function () {
 Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function() {
     Route::get('/race/create', [App\Http\Controllers\AdminController::class, 'createRaceForm'])->name('race.create');
     Route::post('/race/store', [App\Http\Controllers\AdminController::class, 'createRaceStore'])->name('race.store');
+    // Route::post('/races', [App\Http\Controllers\AdminController::class, 'racesList'])->name('races.list');
+
+
+
     Route::get('/sposnor/create', [App\Http\Controllers\AdminController::class, 'createSponsorForm'])->name('sponsor.create');
     Route::post('/sponsor/store', [App\Http\Controllers\AdminController::class, 'createSponsorStore'])->name('sponsor.store');
+    Route::get('/sponsors', [App\Http\Controllers\AdminController::class, 'sponsorsList'])->name('sponsors.list');
+
+
     Route::get('/insurance/create', [App\Http\Controllers\AdminController::class, 'createInsuranceForm'])->name('insurance.create');
     Route::post('/insurance/store', [App\Http\Controllers\AdminController::class, 'createInsuranceStore'])->name('insurance.store');
+    Route::get('/insurances', [App\Http\Controllers\AdminController::class, 'insurancesList'])->name('insurances.list');
 });
-
-Route::get('/admin/insurance/create', [App\Http\Controllers\AdminController::class, 'createInsuranceForm'])->name('insurance.create');
-Route::post('/admin/insurance/store', [App\Http\Controllers\AdminController::class, 'createInsuranceStore'])->name('insurance.store');
 
 
 Auth::routes();
