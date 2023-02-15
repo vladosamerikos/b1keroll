@@ -17,7 +17,7 @@ class CreateSponsorsTable extends Migration
             $table->increments('id');
             $table->string('cif')->unique();
             $table->string('name');
-            // $table->string('logo');
+            $table->binary('logo');
             $table->string('address');
             $table->boolean('main_plain');
             $table->timestamps();

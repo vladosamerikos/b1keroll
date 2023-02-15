@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Crear sponsor') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('sponsor.store') }}">
+                    <form method="POST" enctype="multipart/form-data" action="{{ route('sponsor.store') }}">
                         @csrf
 
                         <div class="row mb-3">
@@ -23,6 +23,19 @@
                                     </span>
                                 @enderror
                             </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="form-label" for="inputImage">Select Image:</label>
+                            <input 
+                                type="file" 
+                                name="image" 
+                                id="inputImage"
+                                class="form-control @error('image') is-invalid @enderror">
+              
+                            @error('image')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="row mb-3">

@@ -37,15 +37,34 @@ class AdminController extends Controller
         
     }
 
-    public function createSponsorStore(){
+    public function createSponsorStore(Request $request){
 
-        Sponsor::create([
-            'cif'=>request('cif'),
-            'name'=>request('name'),
-            // 'logo'=>request('logo'),
-            'address'=>request('address'),
-            'main_plain'=>request('main_plain')
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10048',
         ]);
+
+        $tmpName = $_FILES['image']['tmp_name'];
+        $mimeType = $_FILES['image']['type'];
+        try {
+            Sponsor::create([
+                'cif'=>request('cif'),
+                'name'=>request('name'),
+                'logo'=>file_get_contents($tmpName),
+                'logoType'=>$mimeType,
+                'address'=>request('address'),
+                'main_plain'=>request('main_plain')
+            ]);
+        }catch (\Throwable $th){
+            Sponsor::create([
+                'cif'=>request('cif'),
+                'name'=>request('name'),
+                'logo'=>"null",
+                'address'=>request('address'),
+                'main_plain'=>request('main_plain')
+            ]);
+        }
+        
+        return redirect()->route('sponsors.list');
 
     }
 

@@ -10,7 +10,8 @@ class Sponsor extends Model
     protected $fillable = [
     'cif',
     'name',
-    // 'logo',
+    'logo',
+    'logoType',
     'address',
     'main_plain'];
 

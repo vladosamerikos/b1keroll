@@ -8,6 +8,7 @@
             <thead>
                 <tr>
                   <th scope="col">CIF</th>
+                  <th scope="col">Logo</th>
                   <th scope="col">Nombre</th>
                   <th scope="col">Direccion</th>
                   <th scope="col">Plano principal</th>
@@ -17,6 +18,7 @@
                 @foreach ($sponsors as $sponsor)
                     <tr>
                         <th>{{$sponsor->cif}}</th>
+                        <th><img class="rounded" width="100" src="data:image/jpg;base64,{{base64_encode($sponsor->logo)}}" /></th>
                         <td>{{$sponsor->name}}</td>
                         <td>{{$sponsor->address}}</td>
                         <td><?php if($sponsor->main_plain == 1){
