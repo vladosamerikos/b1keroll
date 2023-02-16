@@ -84,8 +84,20 @@ class AdminController extends Controller
         
     }
 
+    public function editInsuranceForm(Insurance $id){
+        // $insurances = Insurance::get();
+        return view('admin.editinsurance',
+        [
+            'insurance'=>$id
+        ]);
+    }
 
-
-
-
+    public function updateInsurance($id){
+        $insurances = Insurances::where('insurance','id')->first();
+        
+        return view('admin.editInsurance',
+        [
+            'insurance'=>$insurances
+        ]);
+    }
 }

@@ -11,6 +11,7 @@
                   <th scope="col">Nombre</th>
                   <th scope="col">Direccion</th>
                   <th scope="col">Precio</th>
+                  <th scope="col">Editar</th>
                 </tr>
               </thead>
               <tbody>
@@ -20,6 +21,7 @@
                         <td>{{$insurance->name}}</td>
                         <td>{{$insurance->address}}</td>
                         <td>{{$insurance->price_per_race}}</td>
+                        <td><a href="{{route('insurance.edit',['id' => $insurance->id])}}"><input type=button name='button' value='Editar'></a></td>
                     </tr>
                 @endforeach
               </tbody>

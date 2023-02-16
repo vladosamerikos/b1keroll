@@ -35,6 +35,12 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function() {
     Route::get('/insurance/create', [App\Http\Controllers\AdminController::class, 'createInsuranceForm'])->name('insurance.create');
     Route::post('/insurance/store', [App\Http\Controllers\AdminController::class, 'createInsuranceStore'])->name('insurance.store');
     Route::get('/insurances', [App\Http\Controllers\AdminController::class, 'insurancesList'])->name('insurances.list');
+
+    Route::get('/insurance/edit/{id}', [App\Http\Controllers\AdminController::class, 'editInsuranceForm'])->name('insurance.edit');
+    Route::post('/insurance/storeedit', [App\Http\Controllers\AdminController::class, 'editInsuranceStore'])->name('insurance.storeedit');
+
+    Route::get('/insurance/update', [App\Http\Controllers\AdminController::class, 'updateInsuranceForm'])->name('insurance.update');
+    Route::post('/insurance/storeupdate', [App\Http\Controllers\AdminController::class, 'updateInsuranceStore'])->name('insurance.storeupdate');
 });
 
 
