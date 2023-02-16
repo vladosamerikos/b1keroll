@@ -104,14 +104,12 @@ class AdminController extends Controller
     }
 
     public function editInsuranceForm(Insurance $id){
-        // $insurances = Insurance::get();
         return view('admin.editinsurance',
         [
             'insurance'=>$id
         ]);
     }
 
-<<<<<<< HEAD
     public function updateInsurance($id){
         $insurances = Insurances::where('insurance','id')->first();
         
@@ -120,7 +118,23 @@ class AdminController extends Controller
             'insurance'=>$insurances
         ]);
     }
-=======
+
+    public function editSponsorForm(Sponsor $id){
+        return view('admin.editsponsor',
+        [
+            'sponsor'=>$id
+        ]);
+    }
+
+    public function updateSponsor($id){
+        $sponsors = Sponsors::where('sponsor','id')->first();
+        
+        return view('admin.editSponsor',
+        [
+            'sponsor'=>$sponsors
+        ]);
+    }
+    
     public function racesList(){
         $races = Race::get();
         return view('admin.racelist',
@@ -133,5 +147,4 @@ class AdminController extends Controller
 
 
 
->>>>>>> 6b572661ea49ed5891255d8cb8d48e80c50af51a
 }

@@ -12,6 +12,7 @@
                   <th scope="col">Nombre</th>
                   <th scope="col">Direccion</th>
                   <th scope="col">Plano principal</th>
+                  <th scope="col">Editar</th>
                 </tr>
               </thead>
               <tbody>
@@ -26,6 +27,7 @@
                         }else{
                            echo"No";
                         }?></td>
+                        <td><a href="{{route('sponsor.edit',['id' => $sponsor->id])}}"><input type=button name='button' value='Editar'></a></td>
                     </tr>
                 @endforeach
               </tbody>

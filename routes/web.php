@@ -41,6 +41,12 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function() {
 
     Route::get('/insurance/update', [App\Http\Controllers\AdminController::class, 'updateInsuranceForm'])->name('insurance.update');
     Route::post('/insurance/storeupdate', [App\Http\Controllers\AdminController::class, 'updateInsuranceStore'])->name('insurance.storeupdate');
+
+    Route::get('/sponsor/edit/{id}', [App\Http\Controllers\AdminController::class, 'editSponsorForm'])->name('sponsor.edit');
+    Route::post('/sponsor/storeedit', [App\Http\Controllers\AdminController::class, 'editSponsorStore'])->name('sponsor.storeedit');
+
+    Route::get('/sponsor/update', [App\Http\Controllers\AdminController::class, 'updateSponsorForm'])->name('sponsor.update');
+    Route::post('/sponsor/storeupdate', [App\Http\Controllers\AdminController::class, 'updateSponsorStore'])->name('sponsor.storeupdate');
 });
 
 
