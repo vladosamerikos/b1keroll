@@ -44,7 +44,7 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="{{ route('race.create') }}">Crear</a></li>
-                                    {{-- <li><a class="dropdown-item" href="{{ route('race.list') }}">Administrar</a></li> --}}
+                                    <li><a class="dropdown-item" href="{{ route('races.list') }}">Administrar</a></li>
                                     </ul>
                                 </li>
                                 <li class="nav-item dropdown">

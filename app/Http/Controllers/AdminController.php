@@ -37,15 +37,34 @@ class AdminController extends Controller
         
     }
 
-    public function createSponsorStore(){
+    public function createSponsorStore(Request $request){
 
-        Sponsor::create([
-            'cif'=>request('cif'),
-            'name'=>request('name'),
-            // 'logo'=>request('logo'),
-            'address'=>request('address'),
-            'main_plain'=>request('main_plain')
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10048',
         ]);
+
+        $tmpName = $_FILES['image']['tmp_name'];
+        $mimeType = $_FILES['image']['type'];
+        try {
+            Sponsor::create([
+                'cif'=>request('cif'),
+                'name'=>request('name'),
+                'logo'=>file_get_contents($tmpName),
+                'logoType'=>$mimeType,
+                'address'=>request('address'),
+                'main_plain'=>request('main_plain')
+            ]);
+        }catch (\Throwable $th){
+            Sponsor::create([
+                'cif'=>request('cif'),
+                'name'=>request('name'),
+                'logo'=>"null",
+                'address'=>request('address'),
+                'main_plain'=>request('main_plain')
+            ]);
+        }
+        
+        return redirect()->route('sponsors.list');
 
     }
 
@@ -92,6 +111,7 @@ class AdminController extends Controller
         ]);
     }
 
+<<<<<<< HEAD
     public function updateInsurance($id){
         $insurances = Insurances::where('insurance','id')->first();
         
@@ -100,4 +120,18 @@ class AdminController extends Controller
             'insurance'=>$insurances
         ]);
     }
+=======
+    public function racesList(){
+        $races = Race::get();
+        return view('admin.racelist',
+        [
+            'races'=>$races
+        ]);
+        
+    }
+
+
+
+
+>>>>>>> 6b572661ea49ed5891255d8cb8d48e80c50af51a
 }

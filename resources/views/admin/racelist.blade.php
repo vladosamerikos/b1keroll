@@ -7,19 +7,29 @@
         <table class="table">
             <thead>
                 <tr>
-                  <th scope="col">CIF</th>
                   <th scope="col">Nombre</th>
-                  <th scope="col">Direccion</th>
+                  <th scope="col">Descipcion</th>
+                  <th scope="col">Desnivel</th>
+                  <th scope="col">Participantes</th>
+                  <th scope="col">Longitud</th>
+                  <th scope="col">Dia</th>
+                  <th scope="col">Hora</th>
+                  <th scope="col">Salida</th>
                   <th scope="col">Precio</th>
                 </tr>
               </thead>
               <tbody>
-                @foreach ($insurances as $insurance)
+                @foreach ($races as $race)
                     <tr>
-                        <th>{{$insurance->cif}}</th>
-                        <td>{{$insurance->name}}</td>
-                        <td>{{$insurance->address}}</td>
-                        <td>{{$insurance->price_per_race}}</td>
+                        <th>{{$race->name}}</th>
+                        <td>{{$race->description}}</td>
+                        <td>{{$race->unevenness}}</td>
+                        <td>{{$race->number_of_competitos}}</td>
+                        <td>{{$race->length}}</td>
+                        <td>{{$race->start_date}}</td>
+                        <td>{{$race->start_time}}</td>
+                        <td>{{$race->start_point}}</td>
+                        <td>{{$race->price}}</td>
                     </tr>
                 @endforeach
               </tbody>
