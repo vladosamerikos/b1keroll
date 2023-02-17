@@ -12,7 +12,7 @@
                         @csrf
 
                         <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('name') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Nombre') }}</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
@@ -26,7 +26,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label class="form-label" for="inputImage">Select Image:</label>
+                            <label class="form-label" for="inputImage">Selecciona Imagen:</label>
                             <input 
                                 type="file" 
                                 name="image" 
@@ -39,7 +39,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="address" class="col-md-4 col-form-label text-md-end">{{ __('address') }}</label>
+                            <label for="address" class="col-md-4 col-form-label text-md-end">{{ __('Dirección') }}</label>
 
                             <div class="col-md-6">
                                 <textarea id="address"  class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" required autocomplete="address" autofocus></textarea>
@@ -53,7 +53,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="cif" class="col-md-4 col-form-label text-md-end">{{ __('cif') }}</label>
+                            <label for="cif" class="col-md-4 col-form-label text-md-end">{{ __('CIF') }}</label>
 
                             <div class="col-md-6">
                                 <input id="cif" type="text" class="form-control @error('cif') is-invalid @enderror" name="cif" value="{{ old('cif') }}" required autocomplete="cif" autofocus>
@@ -67,10 +67,13 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="main_plain" class="col-md-4 col-form-label text-md-end">{{ __('main_plain') }}</label>
+                            <label for="main_plain" class="col-md-4 col-form-label text-md-end">{{ __('Plano Principal?') }}</label>
 
                             <div class="col-md-6">
-                                <input id="main_plain" type="number" class="form-control @error('main_plain') is-invalid @enderror" name="main_plain" value="{{ old('main_plain') }}" required autocomplete="main_plain" autofocus>
+                                <select name="main_plain" class="form-select">
+                                    <option value="1">Sí</option>
+                                    <option value="0">No</option>
+                                </select>
 
                                 @error('main_plain')
                                     <span class="invalid-feedback" role="alert">

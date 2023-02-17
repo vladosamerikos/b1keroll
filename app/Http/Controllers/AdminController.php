@@ -52,7 +52,7 @@ class AdminController extends Controller
                 'logo'=>file_get_contents($tmpName),
                 'logoType'=>$mimeType,
                 'address'=>request('address'),
-                'main_plain'=>request('main_plain')
+                'main_plain'=>request('main_plain'),
             ]);
         }catch (\Throwable $th){
             Sponsor::create([
