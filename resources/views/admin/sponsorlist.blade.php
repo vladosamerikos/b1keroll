@@ -19,7 +19,7 @@
                 @foreach ($sponsors as $sponsor)
                     <tr>
                         <th>{{$sponsor->cif}}</th>
-                        <th><img class="rounded" width="100" src="data:image/jpg;base64,{{base64_encode($sponsor->logo)}}" /></th>
+                        <th><img class="rounded" width="100" src="{{ asset('storage/' .$sponsor->logo) }}" /></th>
                         <td>{{$sponsor->name}}</td>
                         <td>{{$sponsor->address}}</td>
                         <td><?php if($sponsor->main_plain == 1){
@@ -27,7 +27,7 @@
                         }else{
                            echo"No";
                         }?></td>
-                        <td><a href="{{route('sponsor.edit',['id' => $sponsor->id])}}"><input type=button name='button' value='Editar'></a></td>
+                        <td><a href="{{route('sponsor.edit',['id' => $sponsor->id])}}"><img width="40" height="40" src="{{ asset('img/edit.svg') }}" alt="" srcset=""></a></td>
                     </tr>
                 @endforeach
               </tbody>
