@@ -11,7 +11,6 @@ class Sponsor extends Model
     'cif',
     'name',
     'logo',
-    'logoType',
     'address',
     'main_plain'];
 
