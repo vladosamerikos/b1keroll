@@ -23,7 +23,7 @@ Route::get('/', function () {
 Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function() {
     Route::get('/race/create', [App\Http\Controllers\AdminController::class, 'createRaceForm'])->name('race.create');
     Route::post('/race/store', [App\Http\Controllers\AdminController::class, 'createRaceStore'])->name('race.store');
-    Route::post('/races', [App\Http\Controllers\AdminController::class, 'racesList'])->name('races.list');
+    Route::get('/races', [App\Http\Controllers\AdminController::class, 'racesList'])->name('races.list');
 
 
 

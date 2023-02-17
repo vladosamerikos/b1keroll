@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <h2>Seguros</h2>
+        <h2>Carreras</h2>
         <table class="table">
             <thead>
                 <tr>

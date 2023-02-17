@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Crear cursa') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('race.store') }}">
+                    <form method="POST" enctype="multipart/form-data" action="{{ route('race.store') }}">
                         @csrf
 
                         <div class="row mb-3">
@@ -38,7 +38,33 @@
                                 @enderror
                             </div>
                         </div>
+                        
+                        <div class="row mb-3">
+                            <label class="form-label" for="promotional_poster">Poster promocional:</label>
+                            <input 
+                                type="file" 
+                                name="promotional_poster" 
+                                id="promotional_poster"
+                                class="form-control @error('image') is-invalid @enderror">
+              
+                            @error('image')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
 
+                        <div class="row mb-3">
+                            <label for="map_frame" class="col-md-4 col-form-label text-md-end">{{ __('Enllace al frame') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="map_frame" type="text" class="form-control @error('map_frame') is-invalid @enderror" name="map_frame" value="{{ old('map_frame') }}" required autocomplete="map_frame" autofocus>
+
+                                @error('map_frame')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
                         <div class="row mb-3">
                             <label for="unevenness" class="col-md-4 col-form-label text-md-end">{{ __('unevenness') }}</label>
 

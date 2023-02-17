@@ -3,7 +3,8 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <h2>Sponsores</h2>
+        <h2>Patrocinadores</h2>
+        <a href="{{ route('sponsor.create') }}">Crear patrocinador</a>
         <table class="table">
             <thead>
                 <tr>

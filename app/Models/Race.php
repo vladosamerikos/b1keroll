@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Race extends Model
 {
     protected $fillable = ['name', 'description', 'unevenness',
-    // 'map_img',
+    'map_frame',
     'number_of_competitors', 'length', 'start_date', 'start_time', 'start_point',
-    // 'promotional_poster',
+    'promotional_poster',
     'price'];
     
     use HasFactory;
