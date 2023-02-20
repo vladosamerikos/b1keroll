@@ -4,6 +4,9 @@
 <div class="container">
     <div class="row justify-content-center">
         <h2>Seguros</h2>
+        <div class="mb-3 d-flex justify-content-end">
+          <a class="btn btn-dark btn-block" href="<?php echo e(route('insurance.create')); ?>">Crear seguro</a>
+        </div>
         <table class="table">
             <thead>
                 <tr>
