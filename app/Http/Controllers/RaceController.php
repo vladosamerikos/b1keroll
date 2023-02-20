@@ -9,11 +9,11 @@ use Illuminate\Http\Request;
 class RaceController extends Controller
 {
 
-    public function createRaceForm(){
-        return view('admin.raceform');
+    public function createForm(){
+        return view('admin.race.create');
     }
 
-    public function createRaceStore(Request $request){
+    public function createStore(Request $request){
 
         $request->validate([
             'promotional_poster' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10048',
@@ -32,12 +32,13 @@ class RaceController extends Controller
             'promotional_poster'=>request('img_path'),
             'price'=>request('price')
         ]);
+        return redirect()->route('race.list');
     }
 
 
-    public function racesList(){
+    public function list(){
         $races = Race::get();
-        return view('admin.racelist',
+        return view('admin.race.list',
         [
             'races'=>$races
         ]);

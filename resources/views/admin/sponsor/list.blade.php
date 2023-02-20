@@ -28,7 +28,7 @@
                         }else{
                            echo"No";
                         }?></td>
-                        <td><a href="{{route('sponsor.edit',['id' => $sponsor->id])}}"><img width="40" height="40" src="{{ asset('img/edit.svg') }}" alt="" srcset=""></a></td>
+                        <td><a href="{{route('sponsor.edit', $sponsor)}}"><img width="40" height="40" src="{{ asset('img/edit.svg') }}" alt="" srcset=""></a></td>
                     </tr>
                 @endforeach
               </tbody>

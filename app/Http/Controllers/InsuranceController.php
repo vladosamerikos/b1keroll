@@ -8,12 +8,12 @@ use Illuminate\Http\Request;
 
 class InsuranceController extends Controller
 {
-    public function createInsuranceForm(){
-        return view('admin.insuranceform');
+    public function createForm(){
+        return view('admin.insurance.create');
         
     }
 
-    public function createInsuranceStore(){
+    public function createStore(){
 
         Insurance::create([
             'cif'=>request('cif'),
@@ -22,37 +22,25 @@ class InsuranceController extends Controller
             'address'=>request('address'),
             'price_per_race'=>request('price_per_race')
         ]);
-
+        return redirect()->route('insurance.list');
     }
 
-    public function insurancesList(){
+    public function list(){
         $insurances = Insurance::get();
-        return view('admin.insurancelist',
+        return view('admin.insurance.list',
         [
             'insurances'=>$insurances
         ]);
         
     }
 
-  
 
-    public function editInsuranceForm(Insurance $id){
-        return view('admin.editinsurance',
+    public function editForm(Insurance $id){
+        return view('admin.insurance.edit',
         [
             'insurance'=>$id
         ]);
     }
-
-    public function updateInsurance($id){
-        $insurances = Insurance::where('insurance','id')->first();
-        
-        return view('admin.editInsurance',
-        [
-            'insurance'=>$insurances
-        ]);
-    }
-
-
 
 
 
