@@ -21,32 +21,33 @@ Route::get('/', function () {
 
 
 Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function() {
-    Route::get('/race/create', [App\Http\Controllers\AdminController::class, 'createRaceForm'])->name('race.create');
-    Route::post('/race/store', [App\Http\Controllers\AdminController::class, 'createRaceStore'])->name('race.store');
-    Route::get('/races', [App\Http\Controllers\AdminController::class, 'racesList'])->name('races.list');
+    // Race
+    Route::get('/race/create', [App\Http\Controllers\RaceController::class, 'createRaceForm'])->name('race.create');
+    Route::post('/race/store', [App\Http\Controllers\RaceController::class, 'createRaceStore'])->name('race.store');
+    Route::get('/races', [App\Http\Controllers\RaceController::class, 'racesList'])->name('races.list');
 
+    // Sponsor
+    Route::get('/sposnor/create', [App\Http\Controllers\SponsorController::class, 'createSponsorForm'])->name('sponsor.create');
+    Route::post('/sponsor/store', [App\Http\Controllers\SponsorController::class, 'createSponsorStore'])->name('sponsor.store');
+    Route::get('/sponsors', [App\Http\Controllers\SponsorController::class, 'sponsorsList'])->name('sponsors.list');
 
+    Route::get('/sponsor/edit/{id}', [App\Http\Controllers\SponsorController::class, 'editSponsorForm'])->name('sponsor.edit');
+    Route::post('/sponsor/storeedit', [App\Http\Controllers\SponsorController::class, 'editSponsorStore'])->name('sponsor.storeedit');
 
-    Route::get('/sposnor/create', [App\Http\Controllers\AdminController::class, 'createSponsorForm'])->name('sponsor.create');
-    Route::post('/sponsor/store', [App\Http\Controllers\AdminController::class, 'createSponsorStore'])->name('sponsor.store');
-    Route::get('/sponsors', [App\Http\Controllers\AdminController::class, 'sponsorsList'])->name('sponsors.list');
+    Route::get('/sponsor/update', [App\Http\Controllers\SponsorController::class, 'updateSponsorForm'])->name('sponsor.update');
+    Route::post('/sponsor/storeupdate', [App\Http\Controllers\SponsorController::class, 'updateSponsorStore'])->name('sponsor.storeupdate');
 
+    // Insurace
+    Route::get('/insurance/create', [App\Http\Controllers\InsuranceController::class, 'createInsuranceForm'])->name('insurance.create');
+    Route::post('/insurance/store', [App\Http\Controllers\InsuranceController::class, 'createInsuranceStore'])->name('insurance.store');
+    Route::get('/insurances', [App\Http\Controllers\InsuranceController::class, 'insurancesList'])->name('insurances.list');
 
-    Route::get('/insurance/create', [App\Http\Controllers\AdminController::class, 'createInsuranceForm'])->name('insurance.create');
-    Route::post('/insurance/store', [App\Http\Controllers\AdminController::class, 'createInsuranceStore'])->name('insurance.store');
-    Route::get('/insurances', [App\Http\Controllers\AdminController::class, 'insurancesList'])->name('insurances.list');
+    Route::get('/insurance/edit/{id}', [App\Http\Controllers\InsuranceController::class, 'editInsuranceForm'])->name('insurance.edit');
+    Route::post('/insurance/storeedit', [App\Http\Controllers\InsuranceController::class, 'editInsuranceStore'])->name('insurance.storeedit');
 
-    Route::get('/insurance/edit/{id}', [App\Http\Controllers\AdminController::class, 'editInsuranceForm'])->name('insurance.edit');
-    Route::post('/insurance/storeedit', [App\Http\Controllers\AdminController::class, 'editInsuranceStore'])->name('insurance.storeedit');
+    Route::get('/insurance/update', [App\Http\Controllers\InsuranceController::class, 'updateInsuranceForm'])->name('insurance.update');
+    Route::post('/insurance/storeupdate', [App\Http\Controllers\InsuranceController::class, 'updateInsuranceStore'])->name('insurance.storeupdate');
 
-    Route::get('/insurance/update', [App\Http\Controllers\AdminController::class, 'updateInsuranceForm'])->name('insurance.update');
-    Route::post('/insurance/storeupdate', [App\Http\Controllers\AdminController::class, 'updateInsuranceStore'])->name('insurance.storeupdate');
-
-    Route::get('/sponsor/edit/{id}', [App\Http\Controllers\AdminController::class, 'editSponsorForm'])->name('sponsor.edit');
-    Route::post('/sponsor/storeedit', [App\Http\Controllers\AdminController::class, 'editSponsorStore'])->name('sponsor.storeedit');
-
-    Route::get('/sponsor/update', [App\Http\Controllers\AdminController::class, 'updateSponsorForm'])->name('sponsor.update');
-    Route::post('/sponsor/storeupdate', [App\Http\Controllers\AdminController::class, 'updateSponsorStore'])->name('sponsor.storeupdate');
 });
 
 
