@@ -13,12 +13,14 @@ class InsuranceController extends Controller
         
     }
 
-    public function createStore(){
+    public function createStore(Request $request){
 
+        $request->validate([
+            'cif' => 'required|string|max:9|unique:insurances',
+        ]);
         Insurance::create([
             'cif'=>request('cif'),
             'name'=>request('name'),
-            // 'logo'=>request('logo'),
             'address'=>request('address'),
             'price_per_race'=>request('price_per_race')
         ]);
@@ -35,13 +37,21 @@ class InsuranceController extends Controller
     }
 
 
-    public function editForm(Insurance $id){
+    public function editForm(Insurance $insurance){
         return view('admin.insurance.edit',
         [
-            'insurance'=>$id
+            'insurance'=>$insurance
         ]);
     }
 
+    public function editStore(Request $request, Insurance $insurance){
 
+        $insurance->name=request('name');
+        $insurance->address=request('address');
+        $insurance->price_per_race=request('price_per_race');
+        $insurance->save();
+
+        return redirect()->route('insurance.list');
+    }
 
 }

@@ -5,17 +5,17 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Crear carrera') }}</div>
+                <div class="card-header">{{ __('Editar carrera') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" enctype="multipart/form-data" action="{{ route('race.store') }}">
-                        @csrf
+                    <form method="POST" enctype="multipart/form-data" action="{{ route('race.storeedit', $race) }}">
+                        @csrf @method('PATCH')
 
                         <div class="row mb-3">
                             <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Nombre') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name', $race['name']) }}" required autocomplete="name" autofocus>
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -29,7 +29,7 @@
                             <label for="description" class="col-md-4 col-form-label text-md-end">{{ __('Descripción') }}</label>
 
                             <div class="col-md-6">
-                                <textarea id="description"  class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description') }}" required autocomplete="description" autofocus></textarea>
+                                <textarea id="description"  class="form-control @error('description') is-invalid @enderror" name="description" required autocomplete="description" autofocus>{{$race['description']}}</textarea>
 
                                 @error('description')
                                     <span class="invalid-feedback" role="alert">
@@ -39,26 +39,32 @@
                             </div>
                         </div>
                         
-                        <div class="row mb-3">
-                            <label class="col-md-4 col-form-label text-md-end"  for="promotional_poster">{{ __('Poster promocional') }}</label>
-                            <input 
-                                type="file" 
-                                name="promotional_poster" 
-                                id="promotional_poster"
-                                class="form-control @error('image') is-invalid @enderror">
+                        <div>
+                            <div class="mb-3 d-flex justify-content-center">
+                                <img src="{{ asset('storage/' .$race['promotional_poster']) }}"
+                                alt="old poster" style="width: 300px;" />
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <div class="btn btn-primary btn-rounded">
+                                    <label class="form-label text-white m-1" for="promotional_poster">Cambiar Poster</label>
+                                    <input 
+                                        type="file" 
+                                        name="promotional_poster" 
+                                        id="promotional_poster"
+                                        class=" d-none form-control @error('image') is-invalid @enderror">
               
                             @error('image')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
+                                </div>
+                            </div>
                         </div>
 
-                        
-
-                        <div class="row mb-3">
+                        <div class="row mb-3 mt-3">
                             <label for="map_frame" class="col-md-4 col-form-label text-md-end">{{ __('Frame del Mapa') }}</label>
 
                             <div class="col-md-6">
-                                <input id="map_frame" type="text" class="form-control @error('map_frame') is-invalid @enderror" name="map_frame" value="{{ old('map_frame') }}" required autocomplete="map_frame" autofocus>
+                                <input id="map_frame" type="text" class="form-control @error('map_frame') is-invalid @enderror" name="map_frame" value="{{ old('map_frame', $race['map_frame']) }}" required autocomplete="map_frame" autofocus>
 
                                 @error('map_frame')
                                     <span class="invalid-feedback" role="alert">
@@ -71,7 +77,7 @@
                             <label for="unevenness" class="col-md-4 col-form-label text-md-end">{{ __('Desnivel') }}</label>
 
                             <div class="col-md-6">
-                                <input id="unevenness" type="text" class="form-control @error('unevenness') is-invalid @enderror" name="unevenness" value="{{ old('unevenness') }}" required autocomplete="unevenness" autofocus>
+                                <input id="unevenness" type="text" class="form-control @error('unevenness') is-invalid @enderror" name="unevenness" value="{{ old('unevenness', $race['unevenness']) }}" required autocomplete="unevenness" autofocus>
 
                                 @error('unevenness')
                                     <span class="invalid-feedback" role="alert">
@@ -85,7 +91,7 @@
                             <label for="number_of_competitors" class="col-md-4 col-form-label text-md-end">{{ __('Número de participantes') }}</label>
 
                             <div class="col-md-6">
-                                <input id="number_of_competitors" type="number" class="form-control @error('number_of_competitors') is-invalid @enderror" name="number_of_competitors" value="{{ old('number_of_competitors') }}" required autocomplete="number_of_competitors" autofocus>
+                                <input id="number_of_competitors" type="number" class="form-control @error('number_of_competitors') is-invalid @enderror" name="number_of_competitors" value="{{ old('number_of_competitors', $race['number_of_competitors']) }}" required autocomplete="number_of_competitors" autofocus>
 
                                 @error('number_of_competitors')
                                     <span class="invalid-feedback" role="alert">
@@ -99,7 +105,7 @@
                             <label for="length" class="col-md-4 col-form-label text-md-end">{{ __('Longitud') }}</label>
 
                             <div class="col-md-6">
-                                <input id="length" type="number" step="0.01" class="form-control @error('length') is-invalid @enderror" name="length" value="{{ old('length') }}" required autocomplete="length" autofocus>
+                                <input id="length" type="number" step="0.01" class="form-control @error('length') is-invalid @enderror" name="length" value="{{ old('length', $race['length']) }}" required autocomplete="length" autofocus>
 
                                 @error('length')
                                     <span class="invalid-feedback" role="alert">
@@ -113,7 +119,7 @@
                             <label for="start_date" class="col-md-4 col-form-label text-md-end">{{ __('Fecha') }}</label>
 
                             <div class="col-md-6">
-                                <input id="start_date" type="date"  class="form-control @error('start_date') is-invalid @enderror" name="start_date" value="{{ old('start_date') }}" required autocomplete="start_date" autofocus>
+                                <input id="start_date" type="date"  class="form-control @error('start_date') is-invalid @enderror" name="start_date" value="{{ old('start_date', $race['start_date']) }}" required autocomplete="start_date" autofocus>
 
                                 @error('start_date')
                                     <span class="invalid-feedback" role="alert">
@@ -127,7 +133,7 @@
                             <label for="start_time" class="col-md-4 col-form-label text-md-end">{{ __('Hora') }}</label>
 
                             <div class="col-md-6">
-                                <input id="start_time" type="time" class="form-control @error('start_time') is-invalid @enderror" name="start_time" value="{{ old('start_time') }}" required autocomplete="start_time" autofocus>
+                                <input id="start_time" type="time" class="form-control @error('start_time') is-invalid @enderror" name="start_time" value="{{ old('start_time', $race['start_time']) }}" required autocomplete="start_time" autofocus>
 
                                 @error('start_time')
                                     <span class="invalid-feedback" role="alert">
@@ -142,7 +148,7 @@
                             <label for="start_point" class="col-md-4 col-form-label text-md-end">{{ __('Punto de salida') }}</label>
 
                             <div class="col-md-6">
-                                <input id="start_point" type="text" class="form-control @error('start_point') is-invalid @enderror" name="start_point" value="{{ old('start_point') }}" required autocomplete="start_point" autofocus>
+                                <input id="start_point" type="text" class="form-control @error('start_point') is-invalid @enderror" name="start_point" value="{{ old('start_point', $race['start_point']) }}" required autocomplete="start_point" autofocus>
 
                                 @error('start_point')
                                     <span class="invalid-feedback" role="alert">
@@ -157,7 +163,7 @@
                             <label for="price" class="col-md-4 col-form-label text-md-end">{{ __('Precio') }}</label>
 
                             <div class="col-md-6">
-                                <input id="price" type="number" step="0.01" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ old('price') }}" required autocomplete="price" autofocus>
+                                <input id="price" type="number" step="0.01" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ old('price', $race['price']) }}" required autocomplete="price" autofocus>
 
                                 @error('price')
                                     <span class="invalid-feedback" role="alert">
@@ -167,10 +173,10 @@
                             </div>
                         </div>
 
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
+                        <div class="row mb-0 ">
+                            <div class="d-flex justify-content-center">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Crear') }}
+                                    {{ __('Guardar') }}
                                 </button>
                             </div>
                         </div>

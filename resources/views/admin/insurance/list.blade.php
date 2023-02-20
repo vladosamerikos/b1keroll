@@ -16,12 +16,12 @@
               </thead>
               <tbody>
                 @foreach ($insurances as $insurance)
-                    <tr>
+                    <tr class="align-middle">
                         <th>{{$insurance->cif}}</th>
                         <td>{{$insurance->name}}</td>
                         <td>{{$insurance->address}}</td>
-                        <td>{{$insurance->price_per_race}}</td>
-                        <td><a href="{{route('insurance.edit',['id' => $insurance->id])}}"><input type=button name='button' value='Editar'></a></td>
+                        <td>{{$insurance->price_per_race}} €</td>
+                        <td><a href="{{route('insurance.edit', $insurance)}}"><img width="40" height="40" src="{{ asset('img/edit.svg') }}" alt="" srcset=""></a></td>
                     </tr>
                 @endforeach
               </tbody>

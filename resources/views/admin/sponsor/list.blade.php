@@ -4,7 +4,9 @@
 <div class="container">
     <div class="row justify-content-center">
         <h2>Patrocinadores</h2>
-        <a href="{{ route('sponsor.create') }}">Crear patrocinador</a>
+        <div class="mb-3 d-flex justify-content-end">
+            <a class="btn btn-dark btn-block" href="{{ route('sponsor.create') }}">Crear patrocinador</a>
+        </div>
         <table class="table">
             <thead>
                 <tr>
@@ -18,7 +20,7 @@
               </thead>
               <tbody>
                 @foreach ($sponsors as $sponsor)
-                    <tr>
+                    <tr class="align-middle">
                         <th>{{$sponsor->cif}}</th>
                         <th><img class="rounded" width="100" src="{{ asset('storage/' .$sponsor->logo) }}" /></th>
                         <td>{{$sponsor->name}}</td>

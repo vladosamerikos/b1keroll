@@ -26,7 +26,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label class="form-label" for="inputImage">Selecciona Imagen:</label>
+                            <label class="col-md-4 col-form-label text-md-end" for="inputImage">Selecciona logo</label>
                             <input 
                                 type="file" 
                                 name="image" 

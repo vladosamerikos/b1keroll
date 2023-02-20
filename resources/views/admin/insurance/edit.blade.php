@@ -8,8 +8,8 @@
                 <div class="card-header">{{ __('Editar Seguro') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('insurance.update', $insurance['id']) }}">
-                        @csrf
+                    <form method="POST" action="{{ route('insurance.storeedit', $insurance) }}">
+                        @csrf @method('PATCH')
 
                         <div class="row mb-3">
                             <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Nombre') }}</label>
@@ -43,7 +43,7 @@
                             <label for="cif" class="col-md-4 col-form-label text-md-end">{{ __('CIF') }}</label>
 
                             <div class="col-md-6">
-                                <input id="cif" type="text" class="form-control @error('cif') is-invalid @enderror" name="cif" value="{{ old('cif', $insurance['cif']) }}" required autocomplete="cif" autofocus>
+                                <input readonly id="cif" type="text" class="form-control @error('cif') is-invalid @enderror" name="cif" value="{{ old('cif', $insurance['cif']) }}" required autocomplete="cif" autofocus>
 
                                 @error('cif')
                                     <span class="invalid-feedback" role="alert">
@@ -67,10 +67,10 @@
                             </div>
                         </div>
                         
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
+                        <div class="row mb-0 ">
+                            <div class="d-flex justify-content-center">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Crear') }}
+                                    {{ __('Guardar') }}
                                 </button>
                             </div>
                         </div>

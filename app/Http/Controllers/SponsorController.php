@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Sponsor;
 use App\Http\Controllers\Controller;
-use Error;
 use ErrorException;
 use Illuminate\Http\Request;
 
@@ -19,7 +18,7 @@ class SponsorController extends Controller
 
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10048',
-            'cif' => 'required|string|max:255|unique:sponsors',
+            'cif' => 'required|string|max:9|unique:sponsors',
         ]);
 
         $img_path = $request->file('image')->store('image/sponsors', 'public');

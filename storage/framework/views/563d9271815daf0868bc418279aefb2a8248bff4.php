@@ -16,12 +16,12 @@
               </thead>
               <tbody>
                 <?php $__currentLoopData = $insurances; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $insurance): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <tr>
+                    <tr class="align-middle">
                         <th><?php echo e($insurance->cif); ?></th>
                         <td><?php echo e($insurance->name); ?></td>
                         <td><?php echo e($insurance->address); ?></td>
-                        <td><?php echo e($insurance->price_per_race); ?></td>
-                        <td><a href="<?php echo e(route('insurance.edit',['id' => $insurance->id])); ?>"><input type=button name='button' value='Editar'></a></td>
+                        <td><?php echo e($insurance->price_per_race); ?> €</td>
+                        <td><a href="<?php echo e(route('insurance.edit', $insurance)); ?>"><img width="40" height="40" src="<?php echo e(asset('img/edit.svg')); ?>" alt="" srcset=""></a></td>
                     </tr>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
               </tbody>

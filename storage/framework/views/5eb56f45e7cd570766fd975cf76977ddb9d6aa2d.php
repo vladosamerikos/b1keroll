@@ -4,7 +4,9 @@
 <div class="container">
     <div class="row justify-content-center">
         <h2>Patrocinadores</h2>
-        <a href="<?php echo e(route('sponsor.create')); ?>">Crear patrocinador</a>
+        <div class="mb-3 d-flex justify-content-end">
+            <a class="btn btn-dark btn-block" href="<?php echo e(route('sponsor.create')); ?>">Crear patrocinador</a>
+        </div>
         <table class="table">
             <thead>
                 <tr>
@@ -18,7 +20,7 @@
               </thead>
               <tbody>
                 <?php $__currentLoopData = $sponsors; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sponsor): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <tr>
+                    <tr class="align-middle">
                         <th><?php echo e($sponsor->cif); ?></th>
                         <th><img class="rounded" width="100" src="<?php echo e(asset('storage/' .$sponsor->logo)); ?>" /></th>
                         <td><?php echo e($sponsor->name); ?></td>

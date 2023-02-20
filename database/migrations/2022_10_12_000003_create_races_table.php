@@ -18,7 +18,7 @@ class CreateRacesTable extends Migration
             $table->string('name');
             $table->string('description');
             $table->string('unevenness');
-            $table->string('map_frame');
+            $table->string('map_frame', 1000);
             $table->integer('number_of_competitors');
             $table->float('length');
             $table->date('start_date');
