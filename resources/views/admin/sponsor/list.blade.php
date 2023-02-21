@@ -15,6 +15,7 @@
                   <th scope="col">Nombre</th>
                   <th scope="col">Direccion</th>
                   <th scope="col">Plano principal</th>
+                  <th scope="col">Patrocionar</th>
                   <th scope="col">Editar</th>
                 </tr>
               </thead>
@@ -30,6 +31,7 @@
                         }else{
                            echo"No";
                         }?></td>
+                        <td><a href="{{route('sponsor.sponsoring', $sponsor)}}"><img width="40" height="40" src="{{ asset('img/money.svg') }}" alt="" srcset=""></a></td>
                         <td><a href="{{route('sponsor.edit', $sponsor)}}"><img width="40" height="40" src="{{ asset('img/edit.svg') }}" alt="" srcset=""></a></td>
                     </tr>
                 @endforeach

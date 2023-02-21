@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sponsor;
+use App\Models\Race;
 use App\Http\Controllers\Controller;
 use ErrorException;
 use Illuminate\Http\Request;
@@ -83,6 +84,18 @@ class SponsorController extends Controller
         return redirect()->route('sponsor.list');
     }
 
-    
+    public function sponsoringForm(Sponsor $sponsor){
+        $races = Race::get();
+
+        return view('admin.sponsor.sponsoring',
+        [
+            'races'=>$races,
+            'sponsor'=>$sponsor
+        ]);
+    }
+
+    public function storeSponsoring(Sponsor $sponsor){
+        
+    }
 
 }
