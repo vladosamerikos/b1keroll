@@ -17,6 +17,7 @@
                   <th scope="col">Plano principal</th>
                   <th scope="col">Patrocionar</th>
                   <th scope="col">Editar</th>
+                  <th scope="col">Estado</th>
                 </tr>
               </thead>
               <tbody>
@@ -33,6 +34,13 @@
                         }?></td>
                         <td><a href="<?php echo e(route('sponsor.sponsoring', $sponsor)); ?>"><img width="40" height="40" src="<?php echo e(asset('img/money.svg')); ?>" alt="" srcset=""></a></td>
                         <td><a href="<?php echo e(route('sponsor.edit', $sponsor)); ?>"><img width="40" height="40" src="<?php echo e(asset('img/edit.svg')); ?>" alt="" srcset=""></a></td>
+                        <td><?php if($sponsor->active == 1){?>
+                          <a href="<?php echo e(route('sponsor.storestatus', $sponsor)); ?>"><img width="40" height="40" src="<?php echo e(asset('img/on.svg')); ?>" alt="" srcset=""></a>
+                        <?php }
+                        else{?>
+                          <a href="<?php echo e(route('sponsor.storestatus', $sponsor)); ?>"><img width="40" height="40" src="<?php echo e(asset('img/off.svg')); ?>" alt="" srcset=""></a>
+                        <?php } ?>
+                        </td>
                     </tr>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
               </tbody>

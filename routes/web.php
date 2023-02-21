@@ -36,7 +36,11 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function() {
 
     Route::get('/sponsor/edit/{sponsor}', [App\Http\Controllers\SponsorController::class, 'editForm'])->name('sponsor.edit'); 
     Route::patch('/sponsor/storeedit/{sponsor}', [App\Http\Controllers\SponsorController::class, 'editStore'])->name('sponsor.storeedit');
+
     Route::get('/sponsor/sponsoring/{sponsor}', [App\Http\Controllers\SponsorController::class, 'sponsoringForm'])->name('sponsor.sponsoring');
+    Route::patch('/sponsor/storesponsoring/{sponsor}', [App\Http\Controllers\SponsorController::class, 'storeSponsoring'])->name('sponsor.storesponsoring');
+
+    
 
 
     // Insurace

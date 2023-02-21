@@ -8,7 +8,7 @@
                 <div class="card-header"><?php echo e(__('Patrocionar carreras')); ?></div>
 
                 <div class="card-body">
-                    <form method="POST"  action="">
+                    <form method="POST"  action=" <?php echo e(route('sponsor.storesponsoring', $sponsor)); ?>">
                         <?php echo csrf_field(); ?> <?php echo method_field('PATCH'); ?>
 
                         <div>
@@ -18,29 +18,27 @@
                             </div>
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="races" class="col-md-4 col-form-label text-md-end"><?php echo e(__('Seleciona las carreras a las que quieres patrocionar')); ?></label>
+                        <div style="text-align:center;" class="form group mb-3">
+                            <label for="races" class="col-form-label text-center"><?php echo e(__('Seleciona las carreras a las que quieres patrocionar')); ?></label>
+                            <select multiple name="races[]" class="form-control">
+                                <?php $__currentLoopData = $races; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $race): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($race['id']); ?>"><?php echo e($race['name']." - ".$race['price']." €"); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </select>
 
-                            <div class="col-md-6">
-                                <select name="races" class="form-select" multiple>
-                                    <?php $__currentLoopData = $races; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $race): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($race['id']); ?>"><?php echo e($race['name']); ?></option>
-                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                </select>
-
-                                <?php $__errorArgs = ['races'];
+                            <?php $__errorArgs = ['races'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong><?php echo e($message); ?></strong>
-                                    </span>
-                                <?php unset($message);
+                                <span class="invalid-feedback" role="alert">
+                                    <strong><?php echo e($message); ?></strong>
+                                </span>
+                            <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
-                            </div>
+                            
                         </div>
                         
                         <div class="row mb-0 ">

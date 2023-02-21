@@ -22,6 +22,7 @@
                   <th scope="col">Salida</th>
                   <th scope="col">Precio</th>
                   <th scope="col">Editar</th>
+                  <th scope="col">Estado</th>
                 </tr>
               </thead>
               <tbody>
@@ -41,6 +42,13 @@
                         <td><?php echo e($race->start_point); ?></td>
                         <td><?php echo e($race->price); ?> €</td>
                         <td><a href="<?php echo e(route('race.edit', $race)); ?>"><img width="40" height="40" src="<?php echo e(asset('img/edit.svg')); ?>" alt="" srcset=""></a></td>
+                        <td><?php if($race->active == 1){?>
+                          <a href="<?php echo e(route('race.storestatus', $race)); ?>"><img width="40" height="40" src="<?php echo e(asset('img/on.svg')); ?>" alt="" srcset=""></a>
+                        <?php }
+                        else{?>
+                          <a href="<?php echo e(route('race.storestatus', $race)); ?>"><img width="40" height="40" src="<?php echo e(asset('img/off.svg')); ?>" alt="" srcset=""></a>
+                        <?php } ?>
+                        </td>
                     </tr>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
               </tbody>

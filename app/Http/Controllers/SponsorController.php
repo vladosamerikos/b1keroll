@@ -92,7 +92,7 @@ class SponsorController extends Controller
         return redirect()->route('sponsor.list');
     }
     public function sponsoringForm(Sponsor $sponsor){
-        $races = Race::get();
+        $races = Race::where('active',1)->get();
 
         return view('admin.sponsor.sponsoring',
         [
@@ -101,7 +101,9 @@ class SponsorController extends Controller
         ]);
     }
 
-    public function storeSponsoring(Sponsor $sponsor){
+    public function storeSponsoring(Request $request, Sponsor $sponsor){
+    
+        $sponsor->races()->sync(request('races'));
         
     }
 

@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Patrocionar carreras') }}</div>
 
                 <div class="card-body">
-                    <form method="POST"  action="">
+                    <form method="POST"  action=" {{ route('sponsor.storesponsoring', $sponsor) }}">
                         @csrf @method('PATCH')
 
                         <div>
@@ -18,22 +18,20 @@
                             </div>
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="races" class="col-md-4 col-form-label text-md-end">{{ __('Seleciona las carreras a las que quieres patrocionar') }}</label>
+                        <div style="text-align:center;" class="form group mb-3">
+                            <label for="races" class="col-form-label text-center">{{ __('Seleciona las carreras a las que quieres patrocionar') }}</label>
+                            <select multiple name="races[]" class="form-control">
+                                @foreach ($races as $race)
+                                    <option value="{{$race['id'] }}">{{$race['name']." - ".$race['price']." €"}}</option>
+                                @endforeach
+                            </select>
 
-                            <div class="col-md-6">
-                                <select name="races" class="form-select" multiple>
-                                    @foreach ($races as $race)
-                                        <option value="{{$race['id'] }}">{{$race['name']}}</option>
-                                    @endforeach
-                                </select>
-
-                                @error('races')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                            @error('races')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                            
                         </div>
                         
                         <div class="row mb-0 ">
