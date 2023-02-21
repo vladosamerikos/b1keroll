@@ -54,4 +54,11 @@ class InsuranceController extends Controller
         return redirect()->route('insurance.list');
     }
 
+    public function changeStatus(Insurance $insurance){
+        
+        $insurance->active = !$insurance->active;
+        $insurance->save();
+
+        return redirect()->route('insurance.list');
+    }
 }

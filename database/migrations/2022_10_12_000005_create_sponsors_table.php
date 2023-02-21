@@ -20,6 +20,7 @@ class CreateSponsorsTable extends Migration
             $table->string('logo')->nullable();
             $table->string('address');
             $table->boolean('main_plain');
+            $table->boolean('active')->default(1);
             $table->timestamps();
         });
     }

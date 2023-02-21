@@ -83,6 +83,12 @@ class SponsorController extends Controller
         return redirect()->route('sponsor.list');
     }
 
-    
+    public function changeStatus(Sponsor $sponsor){
+        
+        $sponsor->active = !$sponsor->active;
+        $sponsor->save();
+
+        return redirect()->route('sponsor.list');
+    }
 
 }

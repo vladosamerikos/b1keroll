@@ -16,6 +16,7 @@
                   <th scope="col">Direccion</th>
                   <th scope="col">Plano principal</th>
                   <th scope="col">Editar</th>
+                  <th scope="col">Estado</th>
                 </tr>
               </thead>
               <tbody>
@@ -31,6 +32,13 @@
                            echo"No";
                         }?></td>
                         <td><a href="{{route('sponsor.edit', $sponsor)}}"><img width="40" height="40" src="{{ asset('img/edit.svg') }}" alt="" srcset=""></a></td>
+                        <td><?php if($sponsor->active == 1){?>
+                          <a href="{{route('sponsor.storestatus', $sponsor)}}"><img width="40" height="40" src="{{ asset('img/on.svg') }}" alt="" srcset=""></a>
+                        <?php }
+                        else{?>
+                          <a href="{{route('sponsor.storestatus', $sponsor)}}"><img width="40" height="40" src="{{ asset('img/off.svg') }}" alt="" srcset=""></a>
+                        <?php } ?>
+                        </td>
                     </tr>
                 @endforeach
               </tbody>

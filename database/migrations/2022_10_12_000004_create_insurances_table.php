@@ -19,6 +19,7 @@ class CreateInsurancesTable extends Migration
             $table->string('name');
             $table->string('address');
             $table->integer('price_per_race');
+            $table->boolean('active')->default(1);
             $table->timestamps();
         });
     }
