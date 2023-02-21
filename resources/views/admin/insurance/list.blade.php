@@ -15,6 +15,7 @@
                   <th scope="col">Direccion</th>
                   <th scope="col">Precio</th>
                   <th scope="col">Editar</th>
+                  <th scope="col">Estado</th>
                 </tr>
               </thead>
               <tbody>
@@ -25,6 +26,13 @@
                         <td>{{$insurance->address}}</td>
                         <td>{{$insurance->price_per_race}} €</td>
                         <td><a href="{{route('insurance.edit', $insurance)}}"><img width="40" height="40" src="{{ asset('img/edit.svg') }}" alt="" srcset=""></a></td>
+                        <td><?php if($insurance->active == 1){?>
+                          <a href="{{route('insurance.storestatus', $insurance)}}"><img width="40" height="40" src="{{ asset('img/on.svg') }}" alt="" srcset=""></a>
+                        <?php }
+                        else{?>
+                          <a href="{{route('insurance.storestatus', $insurance)}}"><img width="40" height="40" src="{{ asset('img/off.svg') }}" alt="" srcset=""></a>
+                        <?php } ?>
+                        </td>
                     </tr>
                 @endforeach
               </tbody>
