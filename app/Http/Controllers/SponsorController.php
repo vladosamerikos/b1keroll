@@ -7,6 +7,7 @@ use App\Models\Race;
 use App\Http\Controllers\Controller;
 use ErrorException;
 use Illuminate\Http\Request;
+use PDF;
 
 class SponsorController extends Controller
 {
@@ -94,7 +95,7 @@ class SponsorController extends Controller
     public function sponsoringForm(Sponsor $sponsor){
         $races = Race::where('active',1)->get();
 
-        return view('admin.sponsor.sponsoring',
+        return view('admin.sponsor.sponsoringform',
         [
             'races'=>$races,
             'sponsor'=>$sponsor
@@ -105,6 +106,20 @@ class SponsorController extends Controller
     
         $sponsor->races()->sync(request('races'));
         
+    }
+
+    public function generateInvoicePDF(Sponsor $sponsor)
+    {
+        $races=$sponsor->races;
+        $data = [
+            'sponsor' => $sponsor,
+            'races' =>$races,
+        ];
+
+        $pdf = PDF::loadView('admin.sponsor.invoicePDF',$data)->setOptions(['defaultFont' => 'sans-serif']);
+
+        return view('admin.sponsor.invoicePDF',$data);
+
     }
 
 }

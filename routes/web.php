@@ -40,6 +40,7 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function() {
     Route::get('/sponsor/sponsoring/{sponsor}', [App\Http\Controllers\SponsorController::class, 'sponsoringForm'])->name('sponsor.sponsoring');
     Route::patch('/sponsor/storesponsoring/{sponsor}', [App\Http\Controllers\SponsorController::class, 'storeSponsoring'])->name('sponsor.storesponsoring');
 
+    Route::get('/sponsor/generate/invoicepdf/{sponsor}', [App\Http\Controllers\SponsorController::class, 'generateInvoicePDF'])->name('sponsor.generateinvoicepdf');
     
 
 
