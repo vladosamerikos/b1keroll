@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sponsor;
+use App\Models\Race;
 use App\Http\Controllers\Controller;
 use ErrorException;
 use Illuminate\Http\Request;
@@ -89,6 +90,21 @@ class SponsorController extends Controller
         $sponsor->save();
 
         return redirect()->route('sponsor.list');
+    }
+    public function sponsoringForm(Sponsor $sponsor){
+        $races = Race::where('active',1)->get();
+
+        return view('admin.sponsor.sponsoring',
+        [
+            'races'=>$races,
+            'sponsor'=>$sponsor
+        ]);
+    }
+
+    public function storeSponsoring(Request $request, Sponsor $sponsor){
+    
+        $sponsor->races()->sync(request('races'));
+        
     }
 
 }

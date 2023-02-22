@@ -15,6 +15,7 @@
                   <th scope="col">Nombre</th>
                   <th scope="col">Direccion</th>
                   <th scope="col">Plano principal</th>
+                  <th scope="col">Patrocionar</th>
                   <th scope="col">Editar</th>
                   <th scope="col">Estado</th>
                 </tr>
@@ -31,6 +32,7 @@
                         }else{
                            echo"No";
                         }?></td>
+                        <td><a href="{{route('sponsor.sponsoring', $sponsor)}}"><img width="40" height="40" src="{{ asset('img/money.svg') }}" alt="" srcset=""></a></td>
                         <td><a href="{{route('sponsor.edit', $sponsor)}}"><img width="40" height="40" src="{{ asset('img/edit.svg') }}" alt="" srcset=""></a></td>
                         <td><?php if($sponsor->active == 1){?>
                           <a href="{{route('sponsor.storestatus', $sponsor)}}"><img width="40" height="40" src="{{ asset('img/on.svg') }}" alt="" srcset=""></a>

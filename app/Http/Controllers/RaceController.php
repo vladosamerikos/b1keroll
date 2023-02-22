@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Race;
 use App\Http\Controllers\Controller;
+use App\Models\Sponsor;
 use Illuminate\Http\Request;
 use ErrorException;
 

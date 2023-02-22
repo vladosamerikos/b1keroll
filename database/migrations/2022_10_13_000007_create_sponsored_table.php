@@ -21,8 +21,6 @@ class CreateSponsoredTable extends Migration
             
             $table->unsignedInteger('race_id');
             $table->foreign('race_id')->references('id')->on('races');
-            
-            $table->timestamps();
         });
     }
 
