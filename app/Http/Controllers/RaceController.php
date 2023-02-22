@@ -91,6 +91,4 @@ class RaceController extends Controller
 
         return redirect()->route('race.list');
     }
-
-
 }
