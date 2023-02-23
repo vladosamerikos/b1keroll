@@ -34,7 +34,7 @@
                            echo"No";
                         }?></td>
                         <td><a href="{{route('sponsor.sponsoring', $sponsor)}}"><img width="40" height="40" src="{{ asset('img/money.svg') }}" alt="" srcset=""></a></td>
-                        <td><a href="{{route('sponsor.generateinvoicepdf', $sponsor)}}"><img width="40" height="40" src="{{ asset('img/money.svg') }}" alt="" srcset=""></a></td>
+                        <td><a href="{{route('sponsor.generateinvoice', $sponsor)}}"><img width="40" height="40" src="{{ asset('img/invoice.svg') }}" alt="" srcset=""></a></td>
                         <td><a href="{{route('sponsor.edit', $sponsor)}}"><img width="40" height="40" src="{{ asset('img/edit.svg') }}" alt="" srcset=""></a></td>
                         <td><?php if($sponsor->active == 1){?>
                           <a href="{{route('sponsor.storestatus', $sponsor)}}"><img width="40" height="40" src="{{ asset('img/on.svg') }}" alt="" srcset=""></a>
