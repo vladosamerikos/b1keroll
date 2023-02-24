@@ -3,7 +3,8 @@
 <html>
 <head>
     <title>Generate PDF Laravel 9 - NiceSnippets.com</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 </head>
 <style type="text/css">
     body{
@@ -155,7 +156,7 @@
               <!-- Row start -->
               <div class="row gutters">
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                    <img width='100' class="invoice-logo" heigth='50' src="<?php echo e(asset('storage/' .$sponsor['logo'])); ?>" alt="" srcset="">
+                    <img width='100' class="invoice-logo" heigth='50' src="<?php echo e(('storage/' .$sponsor['logo'])); ?>" alt="" srcset="">
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                   <address class="text-right">
