@@ -18,7 +18,6 @@
 
     <!-- Styles -->
     <link href="<?php echo e(asset('css/app.css')); ?>" rel="stylesheet">
-    <?php echo $__env->yieldPushContent('styles'); ?>
 </head>
 <body>
     <div id="app">
