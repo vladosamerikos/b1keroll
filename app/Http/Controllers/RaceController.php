@@ -92,4 +92,13 @@ class RaceController extends Controller
 
         return redirect()->route('race.list');
     }
+
+
+    public function changeStatus(Race $race){
+        
+        $race->active = !$race->active;
+        $race->save();
+
+        return redirect()->route('race.list');
+    }
 }

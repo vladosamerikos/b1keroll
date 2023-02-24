@@ -7,6 +7,7 @@ use App\Models\Race;
 use App\Http\Controllers\Controller;
 use ErrorException;
 use Illuminate\Http\Request;
+use PDF;
 
 class SponsorController extends Controller
 {
@@ -91,10 +92,11 @@ class SponsorController extends Controller
 
         return redirect()->route('sponsor.list');
     }
+
     public function sponsoringForm(Sponsor $sponsor){
         $races = Race::where('active',1)->get();
 
-        return view('admin.sponsor.sponsoring',
+        return view('admin.sponsor.sponsoringform',
         [
             'races'=>$races,
             'sponsor'=>$sponsor
@@ -104,7 +106,55 @@ class SponsorController extends Controller
     public function storeSponsoring(Request $request, Sponsor $sponsor){
     
         $sponsor->races()->sync(request('races'));
+        return redirect()->route('sponsor.list');
         
+    }
+
+    public function generateInvoice(Sponsor $sponsor)
+    {
+        $races=$sponsor->races;
+
+        $subtotal= 0;
+        foreach($races as $race){
+            $subtotal+=$race['price'];
+        }
+        # Coste del plano principal
+        if ($sponsor->main_plain == 1){
+            $subtotal +=200;
+        }
+        $total = $subtotal*1.21;
+
+        $data = [
+            'sponsor' => $sponsor,
+            'races' =>$races,
+            'subtotal' =>$subtotal,
+            'total' =>$total,
+        ];
+        return view('admin.sponsor.invoice',$data);
+    }
+
+    public function generateInvoicePDF(Sponsor $sponsor)
+    {
+        $races=$sponsor->races;
+        $subtotal= 0;
+        foreach($races as $race){
+            $subtotal+=$race['price'];
+        }
+        # Coste del plano principal
+        if ($sponsor->main_plain == 1){
+            $subtotal +=200;
+        }
+        $total = $subtotal*1.21;
+        $data = [
+            'sponsor' => $sponsor,
+            'races' =>$races,
+            'subtotal' =>$subtotal,
+            'total' =>$total,
+        ];
+        $pdf = PDF::loadView('admin.sponsor.invoicePDF',$data)->setOptions(['defaultFont' => 'sans-serif']);
+        return $pdf->download('pdf_file.pdf');
+        // return view('admin.sponsor.invoicePDF',$data);
+
     }
 
 }

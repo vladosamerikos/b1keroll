@@ -25,15 +25,15 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function() {
     Route::get('/race/create', [App\Http\Controllers\RaceController::class, 'createForm'])->name('race.create');
     Route::post('/race/store', [App\Http\Controllers\RaceController::class, 'createStore'])->name('race.store');
     Route::get('/races', [App\Http\Controllers\RaceController::class, 'list'])->name('race.list');
-    
-
 
     Route::get('/race/edit/{race}', [App\Http\Controllers\RaceController::class, 'editForm'])->name('race.edit'); 
     Route::patch('/race/storeedit/{race}', [App\Http\Controllers\RaceController::class, 'editStore'])->name('race.storeedit');
 
     Route::get('/race/storestatus/{race}', [App\Http\Controllers\RaceController::class, 'changeStatus'])->name('race.storestatus');
+
+
     // Sponsor
-    Route::get('/sponsor/create', [App\Http\Controllers\SponsorController::class, 'createForm'])->name('sponsor.create');
+    Route::get('/sposnor/create', [App\Http\Controllers\SponsorController::class, 'createForm'])->name('sponsor.create');
     Route::post('/sponsor/store', [App\Http\Controllers\SponsorController::class, 'createStore'])->name('sponsor.store');
     Route::get('/sponsors', [App\Http\Controllers\SponsorController::class, 'list'])->name('sponsor.list');
 
@@ -43,8 +43,10 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function() {
     Route::get('/sponsor/sponsoring/{sponsor}', [App\Http\Controllers\SponsorController::class, 'sponsoringForm'])->name('sponsor.sponsoring');
     Route::patch('/sponsor/storesponsoring/{sponsor}', [App\Http\Controllers\SponsorController::class, 'storeSponsoring'])->name('sponsor.storesponsoring');
 
+    Route::get('/sponsor/generate/invoice/{sponsor}', [App\Http\Controllers\SponsorController::class, 'generateInvoice'])->name('sponsor.generateinvoice');
+    Route::get('/sponsor/generate/invoicepdf/{sponsor}', [App\Http\Controllers\SponsorController::class, 'generateInvoicePDF'])->name('sponsor.generateinvoicepdf');
+    
     Route::get('/sponsor/storestatus/{sponsor}', [App\Http\Controllers\SponsorController::class, 'changeStatus'])->name('sponsor.storestatus');
-
 
 
     // Insurace
@@ -56,13 +58,9 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function() {
     Route::patch('/insurance/storeedit/{insurance}', [App\Http\Controllers\InsuranceController::class, 'editStore'])->name('insurance.storeedit');
 
     Route::get('/insurance/storestatus/{insurance}', [App\Http\Controllers\InsuranceController::class, 'changeStatus'])->name('insurance.storestatus');
-
-
-
 });
 
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
