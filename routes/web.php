@@ -33,7 +33,7 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function() {
 
 
     // Sponsor
-    Route::get('/sposnor/create', [App\Http\Controllers\SponsorController::class, 'createForm'])->name('sponsor.create');
+    Route::get('/sponsor/create', [App\Http\Controllers\SponsorController::class, 'createForm'])->name('sponsor.create');
     Route::post('/sponsor/store', [App\Http\Controllers\SponsorController::class, 'createStore'])->name('sponsor.store');
     Route::get('/sponsors', [App\Http\Controllers\SponsorController::class, 'list'])->name('sponsor.list');
 
