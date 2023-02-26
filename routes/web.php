@@ -31,6 +31,10 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function() {
 
     Route::get('/race/storestatus/{race}', [App\Http\Controllers\RaceController::class, 'changeStatus'])->name('race.storestatus');
 
+    Route::get('/race/images/{race}', [App\Http\Controllers\RaceController::class, 'uploadImages'])->name('race.uploadimages'); 
+    Route::post('/race/images/store/{race}', [App\Http\Controllers\RaceController::class, 'storeImages'])->name('race.storeimages');
+
+
 
     // Sponsor
     Route::get('/sponsor/create', [App\Http\Controllers\SponsorController::class, 'createForm'])->name('sponsor.create');
