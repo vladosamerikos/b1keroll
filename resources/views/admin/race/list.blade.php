@@ -9,7 +9,7 @@
       </div>
         <table class="table">
             <thead>
-                <tr>
+                <tr class="text-center">
                   <th scope="col">Nombre</th>
                   <th scope="col">Descipcion</th>
                   <th scope="col">Desnivel</th>
@@ -28,7 +28,7 @@
               </thead>
               <tbody>
                 @foreach ($races as $race)
-                    <tr class="align-middle">
+                    <tr  class="align-middle text-center">
                         <th>{{$race->name}}</th>
                         <td>{{$race->description}}</td>
                         <td>{{$race->unevenness}}</td>
