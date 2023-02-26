@@ -104,9 +104,13 @@ class RaceController extends Controller
     }
 
     public function uploadImages(Race $race){
+
+        $photosRace = PhotosRace::where('race_id',$race->id)->get();
+
         return view('admin.race.uploadimages',
         [
-            'race'=>$race
+            'race'=>$race,
+            'photos'=>$photosRace
         ]);
     }
 

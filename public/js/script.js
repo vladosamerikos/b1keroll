@@ -54,3 +54,6 @@ dropzone.uploadFiles = function (files) {
         }
     }
 }
+
+
+// Carousel
