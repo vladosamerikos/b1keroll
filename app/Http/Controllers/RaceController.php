@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Race;
+use App\Models\Insurance;
 use App\Models\PhotosRace;
 use App\Http\Controllers\Controller;
 use App\Models\Sponsor;
@@ -130,6 +131,24 @@ class RaceController extends Controller
         return response()->json(['success'=>$imageName]);
     }
 
+    public function editInsurances(Race $race){
+        $insurances = Insurance::where('active',1)->get();
+
+        return view('admin.race.editinsurances',
+        [
+            'race'=>$race,
+            'insurances'=>$insurances
+        ]);
+
+    }
+
+    public function storeInsurances(Race $race){
+        $race->insurances()->sync(request('races'));
+        return redirect()->route('race.list');
+    }
+
+
+
     // General part
     
     public function mainPageList(){
@@ -153,6 +172,7 @@ class RaceController extends Controller
         [
             'race'=>$race
         ]);
+
     }
 
 
