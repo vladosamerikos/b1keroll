@@ -76,4 +76,10 @@ Route::get('/', [App\Http\Controllers\RaceController::class, 'mainPageList'])->n
 
 Route::get('/race/{race}', [App\Http\Controllers\RaceController::class, 'showRaceDetails'])->name('race.details');
 
-Route::get('/race/register/{race}', [App\Http\Controllers\RaceController::class, 'showUserRegister'])->name('race.register');
+Route::get('/race/register/{race}', [App\Http\Controllers\RaceController::class, 'showRegister'])->name('race.register');
+
+//user register
+Route::post('/race/store/user/register/{race}', [App\Http\Controllers\RaceController::class, 'userRegister'])->name('race.storeuserregister');
+//for regisred user store insurance
+Route::post('/race/store/register/{race}', [App\Http\Controllers\RaceController::class, 'raceRegister'])->name('race.storeregister');
+

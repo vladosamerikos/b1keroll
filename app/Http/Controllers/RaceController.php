@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Race;
 use App\Models\Insurance;
 use App\Models\PhotosRace;
@@ -9,6 +10,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Sponsor;
 use Illuminate\Http\Request;
 use ErrorException;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+
 
 
 class RaceController extends Controller
@@ -173,14 +177,56 @@ class RaceController extends Controller
     }
 
 
-    public function showUserRegister(Race $race){
-        return view('general.registerrace',
-        [
-            'race'=>$race
-        ]);
+    public function showRegister(Race $race){
 
+        if (Auth::check()) {
+            $insurances= $race->insurances;
+            return view('general.registerrace',
+            [
+                'race'=>$race,
+                'insurances'=>$insurances
+            ]);
+            echo('logined');
+        }else{
+            return view('general.registeruserrace',
+            [
+                'race'=>$race
+            ]);
+        }
     }
 
+    public function userRegister(Race $race, Request $request){
+
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'sex' => 'required|string|max:255',
+            'address' => 'required|string|max:400',
+            'birth_date' => 'required|date',
+            'skill' => 'required|string',
+            'dni' => 'required|string|max:9|unique:users',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:3|confirmed',
+        ]);
+
+        $data = $request->all();
+
+        $now = date("Y-m-d");
+        $user = User::create([
+            'name' => $data['name'],
+            'age' =>  date_diff(date_create($data['birth_date']), date_create($now))->format('%y'),
+            'sex' => $data['sex'],
+            'address' => $data['address'],
+            'birth_date' => $data['birth_date'],
+            'skill' => $data['skill'],
+            'dni' => $data['dni'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
+        
+        Auth::login($user);
+
+        return redirect()->route('race.register',$race);
+    }
 
 
 }
