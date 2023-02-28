@@ -133,17 +133,23 @@ class RaceController extends Controller
 
     public function editInsurances(Race $race){
         $insurances = Insurance::where('active',1)->get();
+        $actual= $race->insurances;
+        $selected = [];
+        foreach ($actual as $insurance){
+           array_push($selected,$insurance->id);
+        }
 
         return view('admin.race.editinsurances',
         [
             'race'=>$race,
-            'insurances'=>$insurances
+            'insurances'=>$insurances,
+            'selected'=>$selected,
         ]);
 
     }
 
     public function storeInsurances(Race $race){
-        $race->insurances()->sync(request('races'));
+        $race->insurances()->sync(request('insurances'));
         return redirect()->route('race.list');
     }
 

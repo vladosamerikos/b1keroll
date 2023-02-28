@@ -14,8 +14,8 @@
                         <div style="text-align:center;" class="form group mb-3">
                             <label for="insurances" class="col-form-label text-center">{{ __('Seleciona los seguros disponibles') }}</label>
                             <select multiple name="insurances[]" class="form-control">
-                                @foreach ($insurances as $insurance)
-                                    <option value="{{$insurance['id'] }}">{{$insurance['name']." - ".$insurance['price_per_race']." €"}}</option>
+                                @foreach($insurances as $insurance)
+                                    <option value="{{ $insurance->id }}" {{ (in_array($insurance->id, $selected)) ? 'selected' : '' }}>{{ $insurance->name." - ".$insurance->price_per_race." €"}}</option>
                                 @endforeach
                             </select>
 

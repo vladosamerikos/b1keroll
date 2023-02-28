@@ -10,11 +10,16 @@ class Insurance extends Model
     protected $fillable = [
     'cif',
     'name',
-    // 'logo',
     'address',
     'price_per_race'];
 
     use HasFactory;
 
     protected $table = "insurances";
+
+    public function races()
+    {
+        return $this->belongsToMany(Race::class, 'race_insurace');
+    }
+
 }

@@ -21,4 +21,10 @@ class Race extends Model
     {
         return $this->belongsToMany(Sponsor::class, 'sponsored','id','id');
     }
+
+    public function insurances()
+    {
+        return $this->belongsToMany(Insurance::class, 'race_insurance');
+    }
+
 }
