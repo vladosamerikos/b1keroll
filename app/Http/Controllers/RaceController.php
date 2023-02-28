@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Race;
+use App\Models\PhotosRace;
 use App\Http\Controllers\Controller;
 use App\Models\Sponsor;
 use Illuminate\Http\Request;
@@ -115,4 +116,33 @@ class RaceController extends Controller
             'race'=>$race
         ]);
     }
+    public function uploadImages(Race $race){
+
+        $photosRace = PhotosRace::where('race_id',$race->id)->get();
+
+        return view('admin.race.uploadimages',
+        [
+            'race'=>$race,
+            'photos'=>$photosRace
+        ]);
+    }
+
+
+    public function storeImages(Race $race, Request $request){
+
+        $folder = $race->id;
+
+        $image = $request->file('file');
+
+
+        $imageName = time().rand(1, 999).'.'.$image->extension(); 
+        $image->move(public_path('/storage/image/race_album/'.$folder),$imageName);
+        $photosRace = new PhotosRace;
+        $photosRace->race_id = $race->id;
+        $photosRace->photo = 'race_album/'.$race->id.'/'.$imageName;
+        $photosRace->save();
+        return response()->json(['success'=>$imageName]);
+
+    }
+    
 }

@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@push('styles')
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+@endpush
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -9,7 +13,7 @@
       </div>
         <table class="table">
             <thead>
-                <tr>
+                <tr class="text-center">
                   <th scope="col">Nombre</th>
                   <th scope="col">Descipcion</th>
                   <th scope="col">Desnivel</th>
@@ -21,13 +25,15 @@
                   <th scope="col">Hora</th>
                   <th scope="col">Salida</th>
                   <th scope="col">Precio</th>
+                  <th scope="col">Subir imagenes</th>
+                  <th scope="col">Participantes</th>
                   <th scope="col">Editar</th>
                   <th scope="col">Estado</th>
                 </tr>
               </thead>
               <tbody>
                 @foreach ($races as $race)
-                    <tr class="align-middle">
+                    <tr  class="align-middle text-center">
                         <th>{{$race->name}}</th>
                         <td>{{$race->description}}</td>
                         <td>{{$race->unevenness}}</td>
@@ -41,12 +47,14 @@
                         <td>{{$race->start_time}}</td>
                         <td>{{$race->start_point}}</td>
                         <td>{{$race->price}} €</td>
-                        <td><a href="{{route('race.edit', $race)}}"><img width="40" height="40" src="{{ asset('img/edit.svg') }}" alt="" srcset=""></a></td>
+                        <td><a href="{{route('race.uploadimages', $race)}}"><img class='table-icon' src="{{ asset('img/add-image.svg') }}" alt="" srcset=""></a></td>
+                        <td><a href="{{route('race.listrunners', $race)}}"><img class='table-icon' src="{{ asset('img/user-list.svg') }}" alt="" srcset=""></a></td>
+                        <td><a href="{{route('race.edit', $race)}}"><img class='table-icon' src="{{ asset('img/edit.svg') }}" alt="" srcset=""></a></td>
                         <td><?php if($race->active == 1){?>
-                          <a href="{{route('race.storestatus', $race)}}"><img width="40" height="40" src="{{ asset('img/on.svg') }}" alt="" srcset=""></a>
+                          <a href="{{route('race.storestatus', $race)}}"><img class='table-icon' src="{{ asset('img/on.svg') }}" alt="" srcset=""></a>
                         <?php }
                         else{?>
-                          <a href="{{route('race.storestatus', $race)}}"><img width="40" height="40" src="{{ asset('img/off.svg') }}" alt="" srcset=""></a>
+                          <a href="{{route('race.storestatus', $race)}}"><img class='table-icon' src="{{ asset('img/off.svg') }}" alt="" srcset=""></a>
                         <?php } ?>
                         </td>
                     </tr>

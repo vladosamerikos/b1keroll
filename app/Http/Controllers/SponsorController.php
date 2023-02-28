@@ -154,7 +154,6 @@ class SponsorController extends Controller
         $pdf = PDF::loadView('admin.sponsor.invoicePDF',$data)->setOptions(['defaultFont' => 'sans-serif']);
         return $pdf->download('pdf_file.pdf');
         // return view('admin.sponsor.invoicePDF',$data);
-
     }
 
 }
