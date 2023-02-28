@@ -71,4 +71,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/', [App\Http\Controllers\RaceController::class, 'mainPageList'])->name('general.race');
 
-Route::get('/racedetails', [App\Http\Controllers\RaceController::class, 'showRaceDetails'])->name('general.race');
+Route::get('/race/{race}', [App\Http\Controllers\RaceController::class, 'showRaceDetails'])->name('race.details');
+
+Route::get('/race/register/{race}', [App\Http\Controllers\RaceController::class, 'showUserRegister'])->name('race.register');

@@ -13,6 +13,8 @@ use ErrorException;
 class RaceController extends Controller
 {
 
+    // Admin part
+
     public function createForm(){
         return view('admin.race.create');
     }
@@ -39,18 +41,9 @@ class RaceController extends Controller
         return redirect()->route('race.list');
     }
 
-
     public function list(){
         $races = Race::get();
         return view('admin.race.list',
-        [
-            'races'=>$races
-        ]);
-    }
-
-    public function mainPageList(){
-        $races = Race::get();
-        return view('welcome',
         [
             'races'=>$races
         ]);
@@ -110,12 +103,6 @@ class RaceController extends Controller
         return redirect()->route('race.list');
     }
 
-    public function showRaceDetails(Race $race){
-        return view('general.race',
-        [
-            'race'=>$race
-        ]);
-    }
     public function uploadImages(Race $race){
 
         $photosRace = PhotosRace::where('race_id',$race->id)->get();
@@ -126,7 +113,6 @@ class RaceController extends Controller
             'photos'=>$photosRace
         ]);
     }
-
 
     public function storeImages(Race $race, Request $request){
 
@@ -142,7 +128,33 @@ class RaceController extends Controller
         $photosRace->photo = 'race_album/'.$race->id.'/'.$imageName;
         $photosRace->save();
         return response()->json(['success'=>$imageName]);
-
     }
+
+    // General part
     
+    public function mainPageList(){
+        $races = Race::get();
+        return view('welcome',
+        [
+            'races'=>$races
+        ]);
+    }
+
+    public function showRaceDetails(Race $race){
+        return view('general.race',
+        [
+            'race'=>$race
+        ]);
+    }
+
+
+    public function showUserRegister(Race $race){
+        return view('general.registerrace',
+        [
+            'race'=>$race
+        ]);
+    }
+
+
+
 }

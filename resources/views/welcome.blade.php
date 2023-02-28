@@ -42,7 +42,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{$race->name}}</h5>
                     <p class="card-text">{{$race->description}}</p>
-                    <a href="{{ route('general.race') }}" class="btn btn-primary">Ver detalles</a>
+                    <a href="{{ route('race.details', $race) }}" class="btn btn-primary">Ver detalles</a>
                 </div>
             </div>
             @endforeach
