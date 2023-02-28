@@ -64,3 +64,7 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function() {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/', [App\Http\Controllers\RaceController::class, 'mainPageList'])->name('general.race');
+
+Route::get('/racedetails', [App\Http\Controllers\RaceController::class, 'showRaceDetails'])->name('general.race');

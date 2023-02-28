@@ -45,7 +45,14 @@ class RaceController extends Controller
         [
             'races'=>$races
         ]);
-        
+    }
+
+    public function mainPageList(){
+        $races = Race::get();
+        return view('welcome',
+        [
+            'races'=>$races
+        ]);
     }
 
     public function editForm(Race $race){
@@ -100,5 +107,12 @@ class RaceController extends Controller
         $race->save();
 
         return redirect()->route('race.list');
+    }
+
+    public function showRaceDetails(Race $race){
+        return view('general.race',
+        [
+            'race'=>$race
+        ]);
     }
 }

@@ -35,6 +35,17 @@
                     @endauth
                 </div>
                 @endif
+            <br>
+            @foreach($races as $race)
+            <div class="card" style="width: 18rem;">
+                <img src="{{ asset('storage/' .$race->promotional_poster) }}" width='100' class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{$race->name}}</h5>
+                    <p class="card-text">{{$race->description}}</p>
+                    <a href="{{ route('general.race') }}" class="btn btn-primary">Ver detalles</a>
+                </div>
+            </div>
+            @endforeach
         </div>
     </body>
 </html>

@@ -72,6 +72,7 @@
                             @endif
                             @if (Auth::user()->role == '0')
                                 <a href="">Soy user</a>
+                                <a href="{{ route('general.race') }}">Ver carreras</a>
                             @endif
                         @endguest
                     </ul>
