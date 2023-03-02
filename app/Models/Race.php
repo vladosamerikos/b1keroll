@@ -26,5 +26,9 @@ class Race extends Model
     {
         return $this->belongsToMany(Insurance::class, 'race_insurance');
     }
+    public function runners()
+    {
+        return $this->belongsToMany(User::class, 'runner_number')->withPivot('qr_code','runner_number','elapsed_time','is_paid');;
+    }
 
 }

@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use ErrorException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use PDF;
+
 
 
 
@@ -157,7 +159,32 @@ class RaceController extends Controller
         return redirect()->route('race.list');
     }
 
+    public function listRunners (Race $race){
+        $runners = $race->runners;
+        return view('admin.race.listrunners', 
+        [
+            'runners'=>$runners,
+            'race'=>$race
+        ]);
+    }
 
+    public function stopTimer(Race $race, User $user)
+    {
+        $start=$race->start_time;
+        $now=date("H:i:s");
+        $elapse = (date("H:i:s", strtotime("00:00:00") + strtotime($now) - strtotime($start)));
+        $user->races()->updateExistingPivot($race->id,['elapsed_time'=> $elapse]);
+        return redirect()->route('race.listrunners', $race);
+    }
+
+    public function printQR(Race $race, User $user)
+    {
+        $data = [
+            'race' => $race,
+            'user' =>$user,
+        ];
+        return view('admin.race.qrimage', $data);
+    }
 
     // General part
     
@@ -227,6 +254,15 @@ class RaceController extends Controller
 
         return redirect()->route('race.register',$race);
     }
+
+    public function raceRegister(Race $race){
+        $user = Auth::user();
+        $insurance = request('insurance');
+        $lastnum= count($race->runners)+1;
+        $race->runners()->sync([$user->id => ['insurance_id' => $insurance, 'runner_number' => $lastnum, 'is_paid' => false]]);
+        print "Apuntado a la carrera";
+    }
+
 
 
 }

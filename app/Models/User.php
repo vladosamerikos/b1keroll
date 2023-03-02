@@ -48,4 +48,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function races()
+    {
+        return $this->belongsToMany(Race::class, 'runner_number')->withPivot('race_id','qr_code','runner_number','elapsed_time','is_paid');
+    }
 }

@@ -39,6 +39,9 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function() {
     Route::get('/race/insuraces/edit/{race}', [App\Http\Controllers\RaceController::class, 'editInsurances'])->name('race.editinsurances'); 
     Route::patch('/race/insuraces/store/{race}', [App\Http\Controllers\RaceController::class, 'storeInsurances'])->name('race.storeinsurances');
 
+    Route::get('/race/stop-timer/{race}/{user}', [App\Http\Controllers\RaceController::class, 'stopTimer'])->name('race.stoptimer');
+    Route::get('/race/print-user-qr/{race}/{user}', [App\Http\Controllers\RaceController::class, 'printQR'])->name('race.printuserqr');
+
     // Sponsor
     Route::get('/sponsor/create', [App\Http\Controllers\SponsorController::class, 'createForm'])->name('sponsor.create');
     Route::post('/sponsor/store', [App\Http\Controllers\SponsorController::class, 'createStore'])->name('sponsor.store');
@@ -82,4 +85,6 @@ Route::get('/race/register/{race}', [App\Http\Controllers\RaceController::class,
 Route::post('/race/store/user/register/{race}', [App\Http\Controllers\RaceController::class, 'userRegister'])->name('race.storeuserregister');
 //for regisred user store insurance
 Route::post('/race/store/register/{race}', [App\Http\Controllers\RaceController::class, 'raceRegister'])->name('race.storeregister');
+
+
 
