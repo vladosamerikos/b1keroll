@@ -40,7 +40,9 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function() {
     Route::patch('/race/insuraces/store/{race}', [App\Http\Controllers\RaceController::class, 'storeInsurances'])->name('race.storeinsurances');
 
     Route::get('/race/stop-timer/{race}/{user}', [App\Http\Controllers\RaceController::class, 'stopTimer'])->name('race.stoptimer');
-    Route::get('/race/print-user-qr/{race}/{user}', [App\Http\Controllers\RaceController::class, 'printQR'])->name('race.printuserqr');
+    Route::get('/race/print-user-qr/{race}/{user}', [App\Http\Controllers\RaceController::class, 'dorsalPage'])->name('race.printuserqr');
+    Route::get('/race/download-user-qr/{race}/{user}', [App\Http\Controllers\RaceController::class, 'downloadDorsal'])->name('race.downloaduserqr');
+
 
     // Sponsor
     Route::get('/sponsor/create', [App\Http\Controllers\SponsorController::class, 'createForm'])->name('sponsor.create');

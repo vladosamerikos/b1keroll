@@ -176,14 +176,25 @@ class RaceController extends Controller
         $user->races()->updateExistingPivot($race->id,['elapsed_time'=> $elapse]);
         return redirect()->route('race.listrunners', $race);
     }
-
-    public function printQR(Race $race, User $user)
+    // TODO pass runner_number
+    public function dorsalPage(Race $race, User $user)
+    {
+        // $number=$race->runners()->where('user_id',$user->id);
+        $data = [
+            'race' => $race,
+            'user' =>$user,
+            // 'number'=>$number,
+        ];
+        return view('admin.race.dorsalpage', $data);
+    }
+    // Todo
+    public function downloadDorsal(Race $race, User $user)
     {
         $data = [
             'race' => $race,
             'user' =>$user,
         ];
-        return view('admin.race.qrimage', $data);
+        return view('admin.race.dorsalpage', $data);
     }
 
     // General part
@@ -259,7 +270,7 @@ class RaceController extends Controller
         $user = Auth::user();
         $insurance = request('insurance');
         $lastnum= count($race->runners)+1;
-        $race->runners()->sync([$user->id => ['insurance_id' => $insurance, 'runner_number' => $lastnum, 'is_paid' => false]]);
+        $race->runners()->attach([$user->id => ['insurance_id' => $insurance, 'runner_number' => $lastnum, 'is_paid' => false]]);
         print "Apuntado a la carrera";
     }
 

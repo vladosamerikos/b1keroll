@@ -28,7 +28,7 @@ class Race extends Model
     }
     public function runners()
     {
-        return $this->belongsToMany(User::class, 'runner_number')->withPivot('runner_number','elapsed_time','is_paid');;
+        return $this->belongsToMany(User::class, 'runner_number')->withPivot('user_id','race_id','runner_number','elapsed_time','is_paid');;
     }
 
 }
