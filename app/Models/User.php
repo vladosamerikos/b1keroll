@@ -51,6 +51,6 @@ class User extends Authenticatable
 
     public function races()
     {
-        return $this->belongsToMany(Race::class, 'runner_number')->withPivot('race_id','qr_code','runner_number','elapsed_time','is_paid');
+        return $this->belongsToMany(Race::class, 'runner_number')->withPivot('race_id','runner_number','elapsed_time','is_paid');
     }
 }
