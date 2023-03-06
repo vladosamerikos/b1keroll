@@ -23,8 +23,9 @@
                         <div style="text-align:center;" class="form group mb-3">
                             <label for="races" class="col-form-label text-center">{{ __('Seleciona las carreras a las que quieres patrocionar') }}</label>
                             <select multiple name="races[]" class="form-control">
-                                @foreach ($races as $race)
-                                    <option value="{{$race['id'] }}">{{$race['name']." - ".$race['price']." €"}}</option>
+
+                                @foreach($races as $race)
+                                    <option value="{{ $race->id }}" {{ (in_array($race->id, $selected)) ? 'selected' : '' }}>{{ $race->name." - ".$race->price." €"}}</option>
                                 @endforeach
                             </select>
 

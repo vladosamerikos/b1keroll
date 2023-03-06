@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Race;
+use App\Models\Insurance;
 use App\Models\PhotosRace;
 use App\Http\Controllers\Controller;
 use App\Models\Sponsor;
 use Illuminate\Http\Request;
 use ErrorException;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use PDF;
+
+
 
 
 class RaceController extends Controller
@@ -130,6 +137,55 @@ class RaceController extends Controller
         return response()->json(['success'=>$imageName]);
     }
 
+    public function editInsurances(Race $race){
+        $insurances = Insurance::where('active',1)->get();
+        $actual= $race->insurances;
+        $selected = [];
+        foreach ($actual as $insurance){
+           array_push($selected,$insurance->id);
+        }
+
+        return view('admin.race.editinsurances',
+        [
+            'race'=>$race,
+            'insurances'=>$insurances,
+            'selected'=>$selected,
+        ]);
+
+    }
+
+    public function storeInsurances(Race $race){
+        $race->insurances()->sync(request('insurances'));
+        return redirect()->route('race.list');
+    }
+
+    public function listRunners (Race $race){
+        $runners = $race->runners;
+        return view('admin.race.listrunners', 
+        [
+            'runners'=>$runners,
+            'race'=>$race
+        ]);
+    }
+
+    public function stopTimer(Race $race, User $user)
+    {
+        $start=$race->start_time;
+        $now=date("H:i:s");
+        $elapse = (date("H:i:s", strtotime("00:00:00") + strtotime($now) - strtotime($start)));
+        $user->races()->updateExistingPivot($race->id,['elapsed_time'=> $elapse]);
+        return redirect()->route('race.listrunners', $race);
+    }
+
+    public function printQR(Race $race, User $user)
+    {
+        $data = [
+            'race' => $race,
+            'user' =>$user,
+        ];
+        return view('admin.race.qrimage', $data);
+    }
+
     // General part
     
     public function mainPageList(){
@@ -148,11 +204,63 @@ class RaceController extends Controller
     }
 
 
-    public function showUserRegister(Race $race){
-        return view('general.registerrace',
-        [
-            'race'=>$race
+    public function showRegister(Race $race){
+
+        if (Auth::check()) {
+            $insurances= $race->insurances;
+            return view('general.registerrace',
+            [
+                'race'=>$race,
+                'insurances'=>$insurances
+            ]);
+            echo('logined');
+        }else{
+            return view('general.registeruserrace',
+            [
+                'race'=>$race
+            ]);
+        }
+    }
+
+    public function userRegister(Race $race, Request $request){
+
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'sex' => 'required|string|max:255',
+            'address' => 'required|string|max:400',
+            'birth_date' => 'required|date',
+            'skill' => 'required|string',
+            'dni' => 'required|string|max:9|unique:users',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:3|confirmed',
         ]);
+
+        $data = $request->all();
+
+        $now = date("Y-m-d");
+        $user = User::create([
+            'name' => $data['name'],
+            'age' =>  date_diff(date_create($data['birth_date']), date_create($now))->format('%y'),
+            'sex' => $data['sex'],
+            'address' => $data['address'],
+            'birth_date' => $data['birth_date'],
+            'skill' => $data['skill'],
+            'dni' => $data['dni'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
+        
+        Auth::login($user);
+
+        return redirect()->route('race.register',$race);
+    }
+
+    public function raceRegister(Race $race){
+        $user = Auth::user();
+        $insurance = request('insurance');
+        $lastnum= count($race->runners)+1;
+        $race->runners()->sync([$user->id => ['insurance_id' => $insurance, 'runner_number' => $lastnum, 'is_paid' => false]]);
+        print "Apuntado a la carrera";
     }
 
 

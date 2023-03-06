@@ -5,28 +5,21 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Patrocionar carreras') }}</div>
+                <div class="card-header">{{ __('Seguros de la carrera '.$race->name) }}</div>
 
                 <div class="card-body">
-                    <form method="POST"  action=" {{ route('sponsor.storesponsoring', $sponsor) }}">
+                    <form method="POST"  action=" {{ route('race.storeinsurances', $race) }}">
                         @csrf @method('PATCH')
 
-                        <div>
-                            <div class="mb-3 d-flex justify-content-center">
-                                <img src="{{ asset('storage/' .$sponsor['logo']) }}"
-                                alt="old logo" style="width: 300px;" />
-                            </div>
-                        </div>
-
                         <div style="text-align:center;" class="form group mb-3">
-                            <label for="races" class="col-form-label text-center">{{ __('Seleciona las carreras a las que quieres patrocionar') }}</label>
-                            <select multiple name="races[]" class="form-control">
-                                @foreach ($races as $race)
-                                    <option value="{{$race['id'] }}">{{$race['name']." - ".$race['price']." €"}}</option>
+                            <label for="insurances" class="col-form-label text-center">{{ __('Seleciona los seguros disponibles') }}</label>
+                            <select multiple name="insurances[]" class="form-control">
+                                @foreach($insurances as $insurance)
+                                    <option value="{{ $insurance->id }}" {{ (in_array($insurance->id, $selected)) ? 'selected' : '' }}>{{ $insurance->name." - ".$insurance->price_per_race." €"}}</option>
                                 @endforeach
                             </select>
 
-                            @error('races')
+                            @error('insurances')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

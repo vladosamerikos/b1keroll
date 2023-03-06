@@ -27,6 +27,7 @@
                   <th scope="col">Precio</th>
                   <th scope="col">Subir imagenes</th>
                   <th scope="col">Participantes</th>
+                  <th scope="col">Editar Seguros</th>
                   <th scope="col">Editar</th>
                   <th scope="col">Estado</th>
                 </tr>
@@ -49,6 +50,7 @@
                         <td>{{$race->price}} €</td>
                         <td><a href="{{route('race.uploadimages', $race)}}"><img class='table-icon' src="{{ asset('img/add-image.svg') }}" alt="" srcset=""></a></td>
                         <td><a href="{{route('race.listrunners', $race)}}"><img class='table-icon' src="{{ asset('img/user-list.svg') }}" alt="" srcset=""></a></td>
+                        <td><a href="{{route('race.editinsurances', $race)}}"><img class='table-icon' src="{{ asset('img/insurance.svg') }}" alt="" srcset=""></a></td>
                         <td><a href="{{route('race.edit', $race)}}"><img class='table-icon' src="{{ asset('img/edit.svg') }}" alt="" srcset=""></a></td>
                         <td><?php if($race->active == 1){?>
                           <a href="{{route('race.storestatus', $race)}}"><img class='table-icon' src="{{ asset('img/on.svg') }}" alt="" srcset=""></a>

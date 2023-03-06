@@ -95,11 +95,18 @@ class SponsorController extends Controller
 
     public function sponsoringForm(Sponsor $sponsor){
         $races = Race::where('active',1)->get();
+        
+        $actual= $sponsor->races;
+        $selected = [];
+        foreach ($actual as $race){
+           array_push($selected,$race->id);
+        }
 
         return view('admin.sponsor.sponsoringform',
         [
             'races'=>$races,
-            'sponsor'=>$sponsor
+            'sponsor'=>$sponsor,
+            'selected'=>$selected
         ]);
     }
 

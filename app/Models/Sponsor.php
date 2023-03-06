@@ -18,11 +18,9 @@ class Sponsor extends Model
 
     protected $table = "sponsors";
 
-
     public function races()
     {
         return $this->belongsToMany(Race::class, 'sponsored');
     }
-
 
 }
