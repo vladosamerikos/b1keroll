@@ -4,7 +4,7 @@
 
 https://mlocati.github.io/articles/php-windows-imagick.html
 
-
+php artisan storage:link
 
 <p align="center">
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>

@@ -179,11 +179,11 @@ class RaceController extends Controller
     // TODO pass runner_number
     public function dorsalPage(Race $race, User $user)
     {
-        // $number=$race->runners()->where('user_id',$user->id);
+        $number=$race->runners()->where('user_id', $user->id)->first()->pivot->runner_number;
         $data = [
             'race' => $race,
             'user' =>$user,
-            // 'number'=>$number,
+            'number'=>$number,
         ];
         return view('admin.race.dorsalpage', $data);
     }
