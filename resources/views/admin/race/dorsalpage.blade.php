@@ -6,7 +6,7 @@
     <div>
         <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(300)->generate('http://192.168.1.124:8000/admin/race/stop-timer/'.$race->id.'/'.$user->id)) !!} ">
     </div>
-   <div> <a href="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(300)->generate('http://192.168.1.124:8000/admin/race/stop-timer/'.$race->id.'/'.$user->id)) !!} " download>Descargar</a></div>
+   <div> <a href="{{ route('race.downloaduserqr', [$race, $user->id])  }}" >Descargar</a></div>
 </div>
 
 @endsection

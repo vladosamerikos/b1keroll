@@ -190,11 +190,17 @@ class RaceController extends Controller
     // Todo
     public function downloadDorsal(Race $race, User $user)
     {
+        $number=$race->runners()->where('user_id', $user->id)->first()->pivot->runner_number;
         $data = [
             'race' => $race,
             'user' =>$user,
+            'number'=>$number,
         ];
-        return view('admin.race.dorsalpage', $data);
+
+        // $pdf = PDF::loadView('admin.race.dorsalpdf',$data)->setOptions(['defaultFont' => 'sans-serif']);
+        // return $pdf->download('pdf_file.pdf');
+        return view('admin.race.dorsalpdf',$data);
+
     }
 
     // General part
