@@ -15,17 +15,17 @@
             <thead>
                 <tr class="text-center">
                   <th scope="col">Nombre</th>
-                  <th scope="col">Descipcion</th>
+                  <th scope="col">Descripción</th>
                   <th scope="col">Desnivel</th>
                   <th scope="col">Poster</th>
                   <th scope="col">Mapa</th>
                   <th scope="col">Participantes</th>
                   <th scope="col">Longitud</th>
-                  <th scope="col">Dia</th>
+                  <th scope="col">Día</th>
                   <th scope="col">Hora</th>
                   <th scope="col">Salida</th>
                   <th scope="col">Precio</th>
-                  <th scope="col">Subir imagenes</th>
+                  <th scope="col">Subir Imágenes</th>
                   <th scope="col">Participantes</th>
                   <th scope="col">Editar Seguros</th>
                   <th scope="col">Editar</th>

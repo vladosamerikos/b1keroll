@@ -38,7 +38,6 @@ class SponsorSeeder extends Seeder
                 'updated_at' => date('Y-m-d H:m:s'),
                 ],
                 [
-                
                 'cif' => '7417362963',
                 'name' => 'Bimbo Ibérica',
                 'logo' => '',
@@ -51,3 +50,4 @@ class SponsorSeeder extends Seeder
             ]);
     }
 }
+?>

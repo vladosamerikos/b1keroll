@@ -21,16 +21,37 @@
     @stack('styles')
 </head>
 <body>
+    
     <div id="app">
-        <nav class="navbar navbar-expand-lg bg-white shadow-sm">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Bikeroll') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url('/') }}">
+                <img width="100" height="100" src=" {{ asset('img/logo-color.svg') }}"/>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <ul class="navbar-nav ms-auto" >
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
-                </button>
-
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                        <a class="nav-link" href="{{ route('race.showAll') }}">Todas las carreras</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="{{ route('race.showUpcoming') }}">Próximas carreras</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="{{ route('race.showDone') }}">Carreras Finalizadas</a>
+                        </li>
+                    </ul>
+                    </div>
+                </div>
+                </nav>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto">
                         @guest
@@ -72,12 +93,12 @@
                             @endif
                             @if (Auth::user()->role == '0')
                                 <a href="">Soy user</a>
-                                <a href="{{ route('general.race') }}">Ver carreras</a>
                             @endif
                         @endguest
                     </ul>
 
                     <ul class="navbar-nav ms-auto">
+                        
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
@@ -93,9 +114,6 @@
                             @endif
                         @else
                            
-
-
-
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}

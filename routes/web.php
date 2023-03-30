@@ -88,5 +88,12 @@ Route::post('/race/store/user/register/{race}', [App\Http\Controllers\RaceContro
 //for regisred user store insurance
 Route::post('/race/store/register/{race}', [App\Http\Controllers\RaceController::class, 'raceRegister'])->name('race.storeregister');
 
+// URLs to different pages (User and Non-registered users)
+Route::get('/races/listado', [App\Http\Controllers\RaceController::class, 'showAll'])->name('race.showAll');
+Route::get('/races/listadoproximas', [App\Http\Controllers\RaceController::class, 'showUpcoming'])->name('race.showUpcoming');
+Route::get('/races/listadoacabadas', [App\Http\Controllers\RaceController::class, 'showDone'])->name('race.showDone');
+
+
+Route::get('/race/runners/{race}', [App\Http\Controllers\RaceController::class, 'listRunners'])->name('race.listrunners'); 
 
 

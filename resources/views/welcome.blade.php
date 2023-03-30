@@ -8,6 +8,13 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+        <!-- JS -->
+        @push('scripts')
+            <script type="text/javascript" src="{{ asset('js/script.js') }}"></script>
+        @endpush
 
         <!-- Styles -->
         <style>
@@ -20,32 +27,190 @@
             }
         </style>
     </head>
-    <body class="antialiased">
-        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
-            @if (Route::has('login'))
-                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-                    @auth
-                        <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
-                    @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
+    <body>
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="{{ url('/') }}">
+                        <img width="100" height="100" src=" {{ asset('img/logo-color.svg') }}"/>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+            <ul class="navbar-nav ms-auto" >
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                        <a class="nav-link" href="{{ route('race.showAll') }}">Todas las carreras</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="{{ route('race.showUpcoming') }}">Próximas carreras</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="{{ route('race.showDone') }}">Carreras Finalizadas</a>
+                        </li>
+                    </ul>
+                    </div>
+                </div>
+                </nav>
+                    <!-- Authentication Links -->
+                    @guest
+                        @if (Route::has('login'))
+                            <li class="nav-item navbar navbar-expand-lg bg-body-tertiary" >
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Iniciar Sesión') }}</a>
+                            </li>
+                        @endif
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
+                            <li class="nav-item navbar navbar-expand-lg bg-body-tertiary">
+                                <a class="nav-link" href="{{ route('register') }}">{{ __('Registrarse') }}</a>
+                            </li>
                         @endif
-                    @endauth
+                    @else
+                        
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->name }}
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
+                    @endguest
+                </ul>
+                </nav>
+                <div class="relative flex items-top justify-center min-h-screen bg-gray-100  sm:items-center py-4 sm:pt-0">                
+                    @foreach($races as $race)
+                    <div class="card" style="width: 18rem; border: 1px solid black; margin: 10px 10px; padding: 15px 15px;" >
+                        <img src="{{ asset('storage/' .$race->promotional_poster) }}" width='100' class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{$race->name}}</h5>
+                            <p class="card-text">{{$race->description}}</p>
+                            <a href="{{ route('race.details', $race) }}" class="btn btn-primary">Ver detalles</a>
+                        </div>
+                    </div>
+                    @endforeach 
                 </div>
-                @endif
-            <br>
-            @foreach($races as $race)
-            <div class="card" style="width: 18rem;">
-                <img src="{{ asset('storage/' .$race->promotional_poster) }}" width='100' class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">{{$race->name}}</h5>
-                    <p class="card-text">{{$race->description}}</p>
-                    <a href="{{ route('race.details', $race) }}" class="btn btn-primary">Ver detalles</a>
+                <div class="display-5 fw-bolder text-center back-image">
+                    <div class="pt-5 titulo-interes">INFORMACIÓN DE INTERÉS</div>
+                    <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+                        <a href="#" class="btn btn-primary mt-5">Fotos y Vídeos</a>
+                        <a href="#" class="btn btn-primary mt-2">Clasificaciones</a>
+                        <a href="#" class="btn btn-primary mt-2">Inscripciones</a>
+                        <a href="#" class="btn btn-primary mt-2 mb-5">Próximas carreras</a>
+                    </div>
                 </div>
             </div>
-            @endforeach
+    <p class="pt-5 mt-5 fw-bolder display-5 text-center">PATROCINADORES</p>
+    <div class="div-sponsors">
+        <div title="Click to flip" class="sponsor">
+            <div class="sponsorFlip">
+                <img alt="More about bimbo" src="{{ asset('img/bimbo.png') }}" class="photo">
+            </div>
+
+            <div class="sponsorData">
+                <div class="sponsorDescription">
+                    The company that redefined web search.
+                </div>
+                <div class="sponsorURL">
+                    <a href="http://www.bimbo.com/">http://www.bimbo.com/ </a>
+                </div>
+            </div>
         </div>
+
+        <div title="Click to flip" class="sponsor">
+            <div class="sponsorFlip ">
+                <img alt="More about bergamont" src="{{ asset('img/bergamont.png') }}" class="photo">
+            </div>
+
+            <div class="sponsorData">
+                <div class="sponsorDescription">
+                    The company that redefined web search.
+                </div>
+                <div class="sponsorURL">
+                    <a href="http://www.bergamont.com/">http://www.bergamont.com/ </a>
+                </div>
+            </div>
+        </div>
+
+        <div title="Click to flip" class="sponsor">
+            <div class="sponsorFlip ">
+                <img alt="More about Mini" src="{{ asset('img/mini.png') }}" class="photo">
+            </div>
+
+            <div class="sponsorData">
+                <div class="sponsorDescription">
+                    The company that redefined web search.
+                </div>
+                <div class="sponsorURL">
+                    <a href="http://www.mini.es/">http://www.mini.es/ </a>
+                </div>
+            </div>
+        </div>
+        <div title="Click to flip" class="sponsor">
+            <div class="sponsorFlip ">
+                <img alt="More about bridgestone" src="{{ asset('img/bridgestone.png') }}" class="photo">
+            </div>
+
+            <div class="sponsorData">
+                <div class="sponsorDescription">
+                    The company that redefined web search.
+                </div>
+                <div class="sponsorURL">
+                    <a href="http://www.bridgestone.com/">http://www.bridgestone.com/ </a>
+                </div>
+            </div>
+        </div>
+        <div title="Click to flip" class="sponsor">
+            <div class="sponsorFlip ">
+                <img alt="More about decathlon" src="{{ asset('img/decathlon.svg') }}" class="photo">
+            </div>
+
+            <div class="sponsorData">
+                <div class="sponsorDescription">
+                    The company that redefined web search.
+                </div>
+                <div class="sponsorURL">
+                    <a href="http://www.decathlon.com/">http://www.decathlon.com/ </a>
+                </div>
+            </div>
+        </div>
+        <div title="Click to flip" class="sponsor">
+            <div class="sponsorFlip ">
+                <img alt="More about citroen" src="{{ asset('img/citroen.png') }}" class="photo">
+            </div>
+
+            <div class="sponsorData">
+                <div class="sponsorDescription">
+                    The company that redefined web search.
+                </div>
+                <div class="sponsorURL">
+                    <a href="http://www.citroen.com/">http://www.citroen.com/ </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <footer class="bg-light text-center text-lg-start mt-5">
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                © 2023 Copyright: BikeRoll
+            </div>
+        </footer>
+    </div>
     </body>
 </html>
+
+

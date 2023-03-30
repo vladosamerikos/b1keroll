@@ -56,6 +56,7 @@ class RaceController extends Controller
         ]);
     }
 
+
     public function editForm(Race $race){
         return view('admin.race.edit',
         [
@@ -206,7 +207,12 @@ class RaceController extends Controller
     // General part
     
     public function mainPageList(){
-        $races = Race::get();
+        $races = Race::
+            where('active',1)
+            ->where('start_date' , '>=' , date('Y-m-d'))
+            ->orderBy('start_date', 'asc')
+            ->limit(4)
+            ->get();
         return view('welcome',
         [
             'races'=>$races
@@ -280,6 +286,36 @@ class RaceController extends Controller
         print "Apuntado a la carrera";
     }
 
+    public function showAll(){
+        $races = Race::
+            where('active',1)
+            ->orderBy('start_date', 'asc')->get();
+        return view('general.races',
+        [
+            'races'=>$races
+        ]);
+    }
 
+    public function showUpcoming(){
+        $races = Race::
+            where('start_date', '>=',  date('Y-m-d'))
+            ->orderBy('start_date', 'asc')
+            ->get();
+        return view('general.races',
+        [
+            'races'=>$races
+        ]);
+    }
+
+    public function showDone(){
+        $races = Race::
+            where('start_date', '<=',  date('Y-m-d'))
+            ->orderBy('start_date', 'asc')
+            ->get();
+        return view('general.races',
+        [
+            'races'=>$races
+        ]);
+    }
 
 }

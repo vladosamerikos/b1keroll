@@ -27,13 +27,13 @@ class UserSeeder extends Seeder
                 'birth_date' => date('2001-01-01'),
                 'skill' => 'open',
                 'federate_number' => '1',
-                'insurance' => '',
+                'insurance' => 1,
                 'email' => 'admin@gmail.com',
-                'password' => md5('admin'),
+                'password' => Hash::make('admin'),
                 'remember_token' => '',
                 'created_at' => date('Y-m-d H:m:s'),
                 'updated_at' => date('Y-m-d H:m:s'),
-                'email_verified_at' => '',
+                'email_verified_at' => date('Y-m-d H:m:s'),
                 ],
                 [
                 'dni' => '48133467',
@@ -45,13 +45,13 @@ class UserSeeder extends Seeder
                 'birth_date' => date('2002-03-20'),
                 'skill' => 'open',
                 'federate_number' => '2',
-                'insurance' => '',
+                'insurance' => 1,
                 'email' => 'gerard@gmail.com',
-                'password' => md5('gerard'),
+                'password' => Hash::make('gerard'),
                 'remember_token' => '',
                 'created_at' => date('Y-m-d H:m:s'),
                 'updated_at' => date('Y-m-d H:m:s'),
-                'email_verified_at' => '',
+                'email_verified_at' => date('Y-m-d H:m:s'),
                 ],
                 [
                 'dni' => '1425367',
@@ -63,14 +63,16 @@ class UserSeeder extends Seeder
                 'birth_date' => date('2003-10-13'),
                 'skill' => 'open',
                 'federate_number' => '3',
-                'insurance' => '',
+                'insurance' => 1,
                 'email' => 'vlad@gmail.com',
-                'password' => md5('vlad'),
+                'password' => Hash::make('vlad'),
                 'remember_token' => '',
                 'created_at' => date('Y-m-d H:m:s'),
                 'updated_at' => date('Y-m-d H:m:s'),
-                'email_verified_at' => '',
+                'email_verified_at' => date('Y-m-d H:m:s'),
                 ]
             ]);
     }
 }
+
+?>
