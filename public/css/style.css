@@ -183,3 +183,25 @@ body{
   border-bottom: 5px solid #1833FF;
   
 }
+
+.boton-detalle{
+  margin: auto;
+  align-items: center;
+}
+
+.boton-detalle{
+  width: 100%;
+  text-align: center;
+
+}
+
+.body-tarjeta{
+  width: 100%;
+  text-align: center;
+}
+
+.imagen-tarjeta{
+  width: 80%;
+  margin-left: 10%;
+  margin-bottom: 5%;
+}

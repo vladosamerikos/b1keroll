@@ -51,48 +51,95 @@
           
         </div>
 
-        <div class="row">
-      <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-        <img
-          src="{{ asset('img/bimbo.png') }}"
-          class="w-100 shadow-1-strong rounded mb-4"
-          alt="Boat on Calm Water"
-        />
+        <p class="pt-5 mt-5 fw-bolder display-5 text-center">PATROCINADORES</p>
+    <div class="div-sponsors">
+        <div title="Click to flip" class="sponsor">
+            <div class="sponsorFlip">
+                <img alt="More about bimbo" src="{{ asset('img/bimbo.png') }}" class="photo">
+            </div>
 
-        <img
-          src="https://mdbcdn.b-cdn.net/img/Photos/Vertical/mountain1.webp"
-          class="w-100 shadow-1-strong rounded mb-4"
-          alt="Wintry Mountain Landscape"
-        />
-      </div>
+            <div class="sponsorData">
+                <div class="sponsorDescription">
+                    The company that redefined web search.
+                </div>
+                <div class="sponsorURL">
+                    <a href="http://www.bimbo.com/">http://www.bimbo.com/ </a>
+                </div>
+            </div>
+        </div>
 
-      <div class="col-lg-4 mb-4 mb-lg-0">
-        <img
-          src="https://mdbcdn.b-cdn.net/img/Photos/Vertical/mountain2.webp"
-          class="w-100 shadow-1-strong rounded mb-4"
-          alt="Mountains in the Clouds"
-        />
+        <div title="Click to flip" class="sponsor">
+            <div class="sponsorFlip ">
+                <img alt="More about bergamont" src="{{ asset('img/bergamont.png') }}" class="photo">
+            </div>
 
-        <img
-          src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
-          class="w-100 shadow-1-strong rounded mb-4"
-          alt="Boat on Calm Water"
-        />
-      </div>
+            <div class="sponsorData">
+                <div class="sponsorDescription">
+                    The company that redefined web search.
+                </div>
+                <div class="sponsorURL">
+                    <a href="http://www.bergamont.com/">http://www.bergamont.com/ </a>
+                </div>
+            </div>
+        </div>
 
-      <div class="col-lg-4 mb-4 mb-lg-0">
-        <img
-          src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(18).webp"
-          class="w-100 shadow-1-strong rounded mb-4"
-          alt="Waves at Sea"
-        />
+        <div title="Click to flip" class="sponsor">
+            <div class="sponsorFlip ">
+                <img alt="More about Mini" src="{{ asset('img/hyundai.svg') }}" class="photo">
+            </div>
 
-        <img
-          src="https://mdbcdn.b-cdn.net/img/Photos/Vertical/mountain3.webp"
-          class="w-100 shadow-1-strong rounded mb-4"
-          alt="Yosemite National Park"
-        />
-      </div>
+            <div class="sponsorData">
+                <div class="sponsorDescription">
+                    The company that redefined web search.
+                </div>
+                <div class="sponsorURL">
+                    <a href="http://www.hyundai.es/">http://www.hyundai.es/ </a>
+                </div>
+            </div>
+        </div>
+        <div title="Click to flip" class="sponsor">
+            <div class="sponsorFlip ">
+                <img alt="More about bridgestone" src="{{ asset('img/bridgestone.png') }}" class="photo">
+            </div>
+
+            <div class="sponsorData">
+                <div class="sponsorDescription">
+                    The company that redefined web search.
+                </div>
+                <div class="sponsorURL">
+                    <a href="http://www.bridgestone.com/">http://www.bridgestone.com/ </a>
+                </div>
+            </div>
+        </div>
+        <div title="Click to flip" class="sponsor">
+            <div class="sponsorFlip ">
+                <img alt="More about decathlon" src="{{ asset('img/decathlon.svg') }}" class="photo">
+            </div>
+
+            <div class="sponsorData">
+                <div class="sponsorDescription">
+                    The company that redefined web search.
+                </div>
+                <div class="sponsorURL">
+                    <a href="http://www.decathlon.com/">http://www.decathlon.com/ </a>
+                </div>
+            </div>
+        </div>
+        <div title="Click to flip" class="sponsor">
+            <div class="sponsorFlip ">
+                <img alt="More about citroen" src="{{ asset('img/citroen.png') }}" class="photo">
+            </div>
+
+            <div class="sponsorData">
+                <div class="sponsorDescription">
+                    The company that redefined web search.
+                </div>
+                <div class="sponsorURL">
+                    <a href="http://www.citroen.com/">http://www.citroen.com/ </a>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
   </div>
 </section>

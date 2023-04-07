@@ -92,15 +92,17 @@
                     @endguest
                 </ul>
                 </nav>
-                <div class="relative flex items-top justify-center min-h-screen bg-gray-100  sm:items-center py-4 sm:pt-0">                
+                <div class=" flex justify-center  bg-gray-100">                
                     @foreach($races as $race)
-                    <div class="card" style="width: 18rem; border: 1px solid black; margin: 10px 10px; padding: 15px 15px;" >
-                        <img src="{{ asset('storage/' .$race->promotional_poster) }}" width='100' class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">{{$race->name}}</h5>
-                            <p class="card-text">{{$race->description}}</p>
-                            <a href="{{ route('race.details', $race) }}" class="btn btn-primary">Ver detalles</a>
-                        </div>
+                    <div class="card" style="width: 18rem; border: 1px solid black; margin: 10px 10px; height: 400px; margin-bottom: 5%; margin-top: 5%;" >
+                        <div style="margin: auto; ">
+                            <img src="{{ asset('storage/' .$race->promotional_poster) }}" class="imagen-tarjeta" alt="...">
+                            <div class="body-tarjeta ">
+                                <h5 class="card-title">{{$race->name}}</h5>
+                                <p class="card-text">{{$race->description}}</p>
+                                <p class="boton-detalle"><a href="{{ route('race.details', $race) }}" class="btn-primary btn ">Ver detalles</a></p>
+                            </div>
+                        </div>  
                     </div>
                     @endforeach 
                 </div>
@@ -148,7 +150,7 @@
 
         <div title="Click to flip" class="sponsor">
             <div class="sponsorFlip ">
-                <img alt="More about Mini" src="{{ asset('img/mini.png') }}" class="photo">
+                <img alt="More about Mini" src="{{ asset('img/hyundai.svg') }}" class="photo">
             </div>
 
             <div class="sponsorData">
@@ -156,7 +158,7 @@
                     The company that redefined web search.
                 </div>
                 <div class="sponsorURL">
-                    <a href="http://www.mini.es/">http://www.mini.es/ </a>
+                    <a href="http://www.hyundai.es/">http://www.hyundai.es/ </a>
                 </div>
             </div>
         </div>
