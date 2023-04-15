@@ -15,10 +15,6 @@ use PHPUnit\TextUI\XmlConfiguration\Group;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 
 Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function() {
     // Race
@@ -33,6 +29,8 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function() {
 
     Route::get('/race/images/{race}', [App\Http\Controllers\RaceController::class, 'uploadImages'])->name('race.uploadimages'); 
     Route::post('/race/images/store/{race}', [App\Http\Controllers\RaceController::class, 'storeImages'])->name('race.storeimages');
+    Route::get('/race/images/delete/{race}/{image}', [App\Http\Controllers\RaceController::class, 'delImage'])->name('race.delImage');
+
 
     Route::get('/race/runners/{race}', [App\Http\Controllers\RaceController::class, 'listRunners'])->name('race.listrunners'); 
 

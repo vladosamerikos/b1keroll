@@ -138,6 +138,21 @@ class RaceController extends Controller
         return response()->json(['success'=>$imageName]);
     }
 
+    public function delImage( Race $race, PhotosRace $image, Request $request){
+
+        $path = public_path("storage/image/".$image->photo);
+        $format_path = str_replace("/", "\\", $path);
+        if (@unlink($format_path)) {
+            echo"file exist and deleted";
+            $image->delete();
+        }else{
+            echo"file dont exist";
+        }
+        return redirect()->route('race.uploadimages', ['race'=>$race]);
+    }
+
+
+
     public function editInsurances(Race $race){
         $insurances = Insurance::where('active',1)->get();
         $actual= $race->insurances;
