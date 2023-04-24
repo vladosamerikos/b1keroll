@@ -29,13 +29,23 @@ class RaceController extends Controller
     public function createStore(Request $request){
 
         $request->validate([
+            'unevenness' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10048',
             'promotional_poster' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10048',
         ]);
         $img_path = $request->file('promotional_poster')->store('image/races', 'public');
+        
+        $id=Race::latest()->first()->id+1;
+
+        $image = $request->file('unevenness');
+        $unevenessName = 'uneveness.'.$image->extension(); 
+        $image->move(public_path('/storage/image/uneveness/'.$id),$unevenessName);
+
+        $uneveness_path = 'uneveness/'.$id.'/'.$unevenessName;
+
         Race::create([
             'name'=>request('name'),
             'description'=>request('description'),
-            'unevenness'=>request('unevenness'),
+            'unevenness'=>$uneveness_path,
             'map_frame'=>request('map_frame'),
             'number_of_competitors'=>request('number_of_competitors'),
             'length'=>request('length'),
@@ -67,6 +77,7 @@ class RaceController extends Controller
     public function editStore(Request $request, Race $race){
 
         $request->validate([
+            'unevenness' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10048',
             'promotional_poster' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10048',
         ]);
 
@@ -87,9 +98,30 @@ class RaceController extends Controller
             echo "</br> Foto anterior";
         }
 
+        if ($request->file('unevenness')){
+            // Delete old img
+            $uneven_path =storage_path().'/app/public/image/'.$race->unevenness;
+            try{
+                unlink($uneven_path);
+            }catch (ErrorException $e){
+                echo "La foto no existe";
+            }
+
+            // Update new img  
+            $id = $race->id;
+            $image = $request->file('unevenness');
+            $unevenessName = 'uneveness.'.$image->extension(); 
+            $image->move(public_path('/storage/image/uneveness/'.$id),$unevenessName);
+            $uneveness_path = 'uneveness/'.$id.'/'.$unevenessName;
+
+
+            $race->unevenness = $uneveness_path;
+        }else{
+            echo "</br> Uneveness anterior";
+        }
+
         $race->name=request('name');
         $race->description=request('description');
-        $race->unevenness=request('unevenness');
         $race->map_frame=request('map_frame');
         $race->number_of_competitors=request('number_of_competitors');
         $race->length=request('length');

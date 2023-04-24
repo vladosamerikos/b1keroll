@@ -73,21 +73,29 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <label for="unevenness" class="col-md-4 col-form-label text-md-end">{{ __('Desnivel') }}</label>
 
-                            <div class="col-md-6">
-                                <input id="unevenness" type="text" class="form-control @error('unevenness') is-invalid @enderror" name="unevenness" value="{{ old('unevenness', $race['unevenness']) }}" required autocomplete="unevenness" autofocus>
-
-                                @error('unevenness')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                        <div>
+                            <div class="mb-3 d-flex justify-content-center">
+                                <img src="{{ asset('storage/image/' .$race->unevenness) }}"
+                                alt="old unevenness" style="width: 300px;" />
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <div class="btn btn-primary btn-rounded">
+                                    <label class="form-label text-white m-1" for="unevenness">Cambiar unevenness</label>
+                                    <input 
+                                        type="file" 
+                                        name="unevenness" 
+                                        id="unevenness"
+                                        class=" d-none form-control @error('image') is-invalid @enderror">
+              
+                            @error('image')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                                </div>
                             </div>
                         </div>
 
-                        <div class="row mb-3">
+                        <div class="row mb-3 mt-3">
                             <label for="number_of_competitors" class="col-md-4 col-form-label text-md-end">{{ __('Número de participantes') }}</label>
 
                             <div class="col-md-6">

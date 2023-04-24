@@ -37,7 +37,7 @@
                     <tr  class="align-middle text-center">
                         <th>{{$race->name}}</th>
                         <td>{{$race->description}}</td>
-                        <td>{{$race->unevenness}}</td>
+                        <td><img class="rounded" width="100" src="{{ asset('storage/image/' .$race->unevenness) }}" /></td>
                         <td><img class="rounded" width="100" src="{{ asset('storage/' .$race->promotional_poster) }}" /></td>
                         <td><iframe src="{{$race->map_frame}}"
                         width="100" height="100" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
