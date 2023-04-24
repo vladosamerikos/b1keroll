@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Sponsor;
 use Illuminate\Http\Request;
 use ErrorException;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use PDF;

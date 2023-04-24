@@ -36,7 +36,7 @@
                 @foreach ($races as $race)
                     <tr  class="align-middle text-center">
                         <th>{{$race->name}}</th>
-                        <td>{{$race->description}}</td>
+                        <td>{{ Str::limit($race->description, 8, '...')}}</td>
                         <td><img class="rounded" width="100" src="{{ asset('storage/image/' .$race->unevenness) }}" /></td>
                         <td><img class="rounded" width="100" src="{{ asset('storage/' .$race->promotional_poster) }}" /></td>
                         <td><iframe src="{{$race->map_frame}}"
