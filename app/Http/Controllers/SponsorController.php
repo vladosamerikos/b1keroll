@@ -123,7 +123,7 @@ class SponsorController extends Controller
 
         $subtotal= 0;
         foreach($races as $race){
-            $subtotal+=$race['price'];
+            $subtotal+=$race['sponsor_price'];
         }
         # Coste del plano principal
         if ($sponsor->main_plain == 1){
@@ -145,7 +145,7 @@ class SponsorController extends Controller
         $races=$sponsor->races;
         $subtotal= 0;
         foreach($races as $race){
-            $subtotal+=$race['price'];
+            $subtotal+=$race['sponsor_price'];
         }
         # Coste del plano principal
         if ($sponsor->main_plain == 1){
@@ -158,7 +158,7 @@ class SponsorController extends Controller
             'subtotal' =>$subtotal,
             'total' =>$total,
         ];
-        $pdf = PDF::loadView('admin.sponsor.invoicePDF',$data)->setOptions(['defaultFont' => 'sans-serif']);
+        $pdf = PDF::loadView('admin.sponsor.invoicePDF',$data)->setOptions(['defaultFont' => 'sans-serif', 'isRemoteEnabled' => true]);
         return $pdf->download('pdf_file.pdf');
         // return view('admin.sponsor.invoicePDF',$data);
     }

@@ -54,7 +54,8 @@ class RaceController extends Controller
             'start_time'=>request('start_time'),
             'start_point'=>request('start_point'),
             'promotional_poster'=>$img_path,
-            'price'=>request('price')
+            'price'=>request('price'),
+            'sponsor_price'=>request('sponsor_price')
         ]);
         return redirect()->route('race.list');
     }
@@ -129,6 +130,7 @@ class RaceController extends Controller
         $race->start_date=request('start_date');
         $race->start_time=request('start_time');
         $race->start_point=request('start_point');
+        $race->sponsor_price=request('sponsor_price');
         $race->price=request('price');
         $race->save();
 

@@ -31,9 +31,9 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                   <address class="text-right">
-                    Bikeroll , 45 NorthWest Street.<br>
+                    Bikeroll , Calle de las Lloronas 47<br>
                     Badalona, Barcelona.<br>
-                    00000 00000
+                    {{date('d/m/Y' ,strtotime( date('Y-m-d')))}}
                   </address>
                 </div>
               </div>
@@ -48,14 +48,8 @@
                       {{$sponsor->address}}
                     </address>
                   </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-                  <div class="invoice-details">
-                    <div class="invoice-num">
-                      <div>{{date('d/m/Y' ,strtotime( date('Y-m-d')))}}</div>
-                    </div>
-                  </div>													
-                </div>
+                </div>											
+                
               </div>
               <!-- Row end -->
   
@@ -82,7 +76,7 @@
                             Patrocionamiento de {{$race->name}}
                           </td>
                           <td></td>
-                          <td >{{$race->price}} €</td>
+                          <td >{{$race->sponsor_price}} €</td>
                         </tr>
                         @endforeach
                         

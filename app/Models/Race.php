@@ -10,7 +10,7 @@ class Race extends Model
     protected $fillable = ['name', 'description', 'unevenness',
     'map_frame',
     'number_of_competitors', 'length', 'start_date', 'start_time', 'start_point',
-    'promotional_poster',
+    'promotional_poster', 'sponsor_price',
     'price'];
     
     use HasFactory;

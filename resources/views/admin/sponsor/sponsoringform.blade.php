@@ -25,7 +25,7 @@
                             <select multiple name="races[]" class="form-control">
 
                                 @foreach($races as $race)
-                                    <option value="{{ $race->id }}" {{ (in_array($race->id, $selected)) ? 'selected' : '' }}>{{ $race->name." - ".$race->price." €"}}</option>
+                                    <option value="{{ $race->id }}" {{ (in_array($race->id, $selected)) ? 'selected' : '' }}>{{ $race->name." - ".$race->sponsor_price." €"}}</option>
                                 @endforeach
                             </select>
 

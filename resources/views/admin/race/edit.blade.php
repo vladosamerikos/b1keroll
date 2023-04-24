@@ -166,6 +166,19 @@
                             </div>
                         </div>
 
+                        <div class="row mb-3">
+                            <label for="sponsor_price" class="col-md-4 col-form-label text-md-end">{{ __('Precio de patrocionamiento') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="sponsor_price" type="number" step="0.01" class="form-control @error('sponsor_price') is-invalid @enderror" name="sponsor_price" value="{{ old('sponsor_price', $race['sponsor_price']) }}" required autocomplete="sponsor_price" autofocus>
+
+                                @error('sponsor_price')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
 
                         <div class="row mb-3">
                             <label for="price" class="col-md-4 col-form-label text-md-end">{{ __('Precio') }}</label>
