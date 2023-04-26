@@ -277,22 +277,42 @@ class RaceController extends Controller
     }
 
 
-    public function showRegister(Race $race){
+    public function getEmail(Race $race){
 
-        if (Auth::check()) {
+        return view('general.getemail',
+        [
+            'race'=>$race
+        ]);
+    }
+
+    public function checkEmail(Race $race, Request $request){
+
+        $user = User::where('email', $request->input('email'))->first();
+
+
+        if ($user) {
+            // Federado
             $insurances= $race->insurances;
-            return view('general.registerrace',
+            return view('general.getinsurance',
             [
                 'race'=>$race,
+                'user'=>$user,
                 'insurances'=>$insurances
             ]);
-            echo('logined');
-        }else{
-            return view('general.registeruserrace',
-            [
-                'race'=>$race
-            ]);
+        } else {
+            echo "No federado";
+            // No federado
+            return redirect()->route('race.register', $race);
         }
+
+    }
+
+    public function showRegister(Race $race){
+
+        return view('general.userregister',
+        [
+            'race'=>$race
+        ]);
     }
 
     public function userRegister(Race $race, Request $request){
@@ -305,7 +325,6 @@ class RaceController extends Controller
             'skill' => 'required|string',
             'dni' => 'required|string|max:9|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:3|confirmed',
         ]);
 
         $data = $request->all();
@@ -320,20 +339,31 @@ class RaceController extends Controller
             'skill' => $data['skill'],
             'dni' => $data['dni'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'password' => Hash::make('123'),
         ]);
         
-        Auth::login($user);
+        $insurances= $race->insurances;
+        
+        return view('general.getinsurance',
+        [
+            'race'=>$race,
+            'user'=>$user,
+            'insurances'=>$insurances
+        ]);
 
-        return redirect()->route('race.register',$race);
     }
 
-    public function raceRegister(Race $race){
-        $user = Auth::user();
+    public function prePayment(Race $race, User $user){
+        print $race->name;
+        echo "<br>";
+        print $user->name;
+        echo "<br>";
+
         $insurance = request('insurance');
-        $lastnum= count($race->runners)+1;
-        $race->runners()->attach([$user->id => ['insurance_id' => $insurance, 'runner_number' => $lastnum, 'is_paid' => false]]);
-        print "Apuntado a la carrera";
+        print $insurance;
+        // $lastnum= count($race->runners)+1;
+        // $race->runners()->attach([$user->id => ['insurance_id' => $insurance, 'runner_number' => $lastnum, 'is_paid' => false]]);
+        // print "Apuntado a la carrera";
     }
 
     public function showAll(){

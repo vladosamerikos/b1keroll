@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use PHPUnit\TextUI\XmlConfiguration\Group;
@@ -79,12 +80,20 @@ Route::get('/', [App\Http\Controllers\RaceController::class, 'mainPageList'])->n
 
 Route::get('/race/{race}', [App\Http\Controllers\RaceController::class, 'showRaceDetails'])->name('race.details');
 
-Route::get('/race/register/{race}', [App\Http\Controllers\RaceController::class, 'showRegister'])->name('race.register');
 
-//user register
-Route::post('/race/store/user/register/{race}', [App\Http\Controllers\RaceController::class, 'userRegister'])->name('race.storeuserregister');
-//for regisred user store insurance
-Route::post('/race/store/register/{race}', [App\Http\Controllers\RaceController::class, 'raceRegister'])->name('race.storeregister');
+Route::get('/race/subscribe/{race}', [App\Http\Controllers\RaceController::class, 'getEmail'])->name('race.getemail');
+
+Route::post('/race/checkemail/{race}', [App\Http\Controllers\RaceController::class, 'checkEmail'])->name('race.checkemail');
+
+// Formulario de federacion
+Route::get('/race/subscribe-form/{race}', [App\Http\Controllers\RaceController::class, 'showRegister'])->name('race.register');
+
+
+//guardar federacion y mandar a insurance
+Route::post('/race/store/subscribe-form/{race}', [App\Http\Controllers\RaceController::class, 'userRegister'])->name('race.storeuserregister');
+
+//Get insurance for selected race and go to payment
+Route::post('/race/prepayment/{race}/{user}', [App\Http\Controllers\RaceController::class, 'prePayment'])->name('race.prepayment');
 
 // URLs to different pages (User and Non-registered users)
 Route::get('/races/listado', [App\Http\Controllers\RaceController::class, 'showAll'])->name('race.showAll');
@@ -94,4 +103,8 @@ Route::get('/races/listadoacabadas', [App\Http\Controllers\RaceController::class
 
 Route::get('/race/runners/{race}', [App\Http\Controllers\RaceController::class, 'listRunners'])->name('race.listrunners'); 
 
+//PayPal
+Route::post('pay', [PaymentController::class, 'pay'])->name('payment');
 
+Route::get('success', [PaymentController::class, 'success']);
+Route::get('error', [PaymentController::class, 'error']);

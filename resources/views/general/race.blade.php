@@ -19,7 +19,7 @@
                   <span><img class='table-icon' src="{{ asset('img/distance.svg') }}" alt="" srcset="" width="30" height="30">  {{$race->length}} KMs</span>
               </div>
               <p>{{$race->description}}</p>
-              <a href="{{ route('race.register', $race) }}" class="btn btn-primary">Apuntarse</a>
+              <a href="{{ route('race.getemail', $race) }}" class="btn btn-primary">Apuntarse</a>
           </div>
       </div>
       <br>
