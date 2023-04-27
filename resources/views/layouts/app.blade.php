@@ -34,31 +34,26 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <ul class="navbar-nav ms-auto" >
-            <nav class="navbar navbar-expand-lg bg-body-tertiary">
-                <div class="container-fluid">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                        <a class="nav-link" href="{{ route('race.showAll') }}">Todas las carreras</a>
-                        </li>
-                        <li class="nav-item">
-                        <a class="nav-link" href="{{ route('race.showUpcoming') }}">Próximas carreras</a>
-                        </li>
-                        <li class="nav-item">
-                        <a class="nav-link" href="{{ route('race.showDone') }}">Carreras Finalizadas</a>
-                        </li>
-                    </ul>
-                    </div>
-                </div>
-                </nav>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    
                     <ul class="navbar-nav ms-auto">
                         @guest
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                    
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('race.showAll') }}">Todas las carreras</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('race.showUpcoming') }}">Próximas carreras</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('race.showDone') }}">Carreras Finalizadas</a>
+                                    </li>
+
+                                </ul>
+                            </div>    
                         @else
-                           
                             @if (Auth::user()->role == '1')
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -94,7 +89,7 @@
 
                             @endif
                             @if (Auth::user()->role == '0')
-                                <a href="">Soy user</a>
+                                
                             @endif
                         @endguest
                     </ul>
@@ -103,17 +98,7 @@
                         
                         <!-- Authentication Links -->
                         @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
+                            
                         @else
                            
                             <li class="nav-item dropdown">
@@ -146,6 +131,7 @@
     <div>
         <footer class="bg-light text-center text-lg-start mt-5">
             <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                
                 © 2023 Copyright: BikeRoll
             </div>
         </footer>

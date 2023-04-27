@@ -28,62 +28,104 @@
         </style>
     </head>
     <body>
-    <nav class="navbar navbar-expand-lg tarjeta-color shadow-sm">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{{ url('/') }}">
-                <img style="border-radius: 15px;" class="hover-logo" width="100" height="100" src=" {{ asset('img/logo-color.svg') }}"/>
-            </a>
-            <ul class="navbar-nav ms-auto nav-link" >
-        
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+        <nav class="navbar navbar-expand-lg tarjeta-color">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    <img style="border-radius: 15px;" class="hover-logo" width="100" height="100" src=" {{ asset('img/logo-color.svg') }}"/>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                    <span class="navbar-toggler-icon"></span>
                 </button>
-                <!-- <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav"> -->
-                <li class="nav-item navbar collapse navbar-collapse navbar-expand-lg bg-body-tertiary" id="navbarNavDropdown">
-                    <a class="nav-link" href="{{ route('race.showAll') }}">Todas las carreras</a>
-                </li>
-                <li class="nav-item navbar collapse navbar-collapse navbar-expand-lg bg-body-tertiary">
-                    <a class="nav-link" href="{{ route('race.showUpcoming') }}">Próximas carreras</a>
-                </li>
-                <li class="nav-item navbar collapse navbar-collapse navbar-expand-lg bg-body-tertiary">
-                    <a class="nav-link" href="{{ route('race.showDone') }}">Carreras Finalizadas</a>
-                </li>
-            <!-- Authentication Links -->
-            @guest
-                @if (Route::has('login'))
-                    <li class="nav-item navbar collapse navbar-collapse navbar-expand-lg bg-body-tertiary" >
-                        <a class="nav-link" href="{{ route('login') }}">{{ __('Iniciar Sesión') }}</a>
-                    </li>
-                @endif
-
-                @if (Route::has('register'))
-                    <li class="nav-item navbar collapse navbar-collapse navbar-expand-lg bg-body-tertiary">
-                        <a class="nav-link" href="{{ route('register') }}">{{ __('Registrarse') }}</a>
-                    </li>
-                @endif
-            @else
-                
-                <li class="nav-item dropdown">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        {{ Auth::user()->name }}
-                    </a>
-
-                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
-                                            document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                        </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
+                <ul class="navbar-nav ms-auto" >
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        
+                        <ul class="navbar-nav ms-auto">
+                            @guest
+                                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                        
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('race.showAll') }}">Todas las carreras</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('race.showUpcoming') }}">Próximas carreras</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('race.showDone') }}">Carreras Finalizadas</a>
+                                        </li>
+    
+                                    </ul>
+                                </div>    
+                            @else
+                                @if (Auth::user()->role == '1')
+                                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Carreras
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="{{ route('race.create') }}">Crear</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('race.list') }}">Administrar</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Patrocinadores
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="{{ route('sponsor.create') }}">Crear</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('sponsor.list') }}">Administrar</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="{{ route('insurance.list') }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Seguros
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="{{ route('insurance.create') }}">Crear</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('insurance.list') }}">Administrar</a></li>
+                                        </ul>
+                                    </li>
+                                    </ul>
+                                </div>
+    
+                                @endif
+                                @if (Auth::user()->role == '0')
+                                    
+                                @endif
+                            @endguest
+                        </ul>
+    
+                        <ul class="navbar-nav ms-auto">
+                            
+                            <!-- Authentication Links -->
+                            @guest
+                                
+                            @else
+                               
+                                <li class="nav-item dropdown">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        {{ Auth::user()->name }}
+                                    </a>
+    
+                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                           onclick="event.preventDefault();
+                                                         document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}
+                                        </a>
+    
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+                                    </div>
+                                </li>
+                            @endguest
+                        </ul>
                     </div>
-                </li>
-            @endguest
-        </ul>
-    </nav>
+                </div>
+            </nav>
     <div class="container">
         <div class=" flex justify-center">                
             @foreach($races as $race)
