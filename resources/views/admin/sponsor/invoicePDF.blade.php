@@ -4,15 +4,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Generate PDF Laravel 9 - NiceSnippets.com</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    <title>PDF</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 </head>
 <style type="text/css">
-    body{
+body{
     margin: 0;
     padding: 0;
-    font: 400 .875rem 'Open Sans', sans-serif;
+    font: 400 .675rem 'Open Sans', sans-serif;
     color: #bcd0f7;
     background: #1A233A;
     position: relative;
@@ -146,7 +146,8 @@
 </head>
 <body>
   
-
+<br>
+<br>
 <div class="container">
   <div class="row gutters">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -158,13 +159,13 @@
               <!-- Row start -->
               <div class="row gutters">
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                    <img width='100' class="invoice-logo" heigth='50' src="{{ ('storage/' .$sponsor['logo']) }}" alt="" srcset="">
+                    {{-- <img width='100' class="invoice-logo" heigth='50' src="{{ asset('storage/' .$sponsor['logo'])  }}" alt="" srcset=""> --}}
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                   <address class="text-right">
-                    Bikeroll , 45 NorthWest Street.<br>
+                    Bikeroll , Calle de las Lloronas 47<br>
                     Badalona, Barcelona.<br>
-                    00000 00000
+                    {{date('d/m/Y' ,strtotime( date('Y-m-d')))}}
                   </address>
                 </div>
               </div>
@@ -179,13 +180,6 @@
                       {{$sponsor->address}}
                     </address>
                   </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-                  <div class="invoice-details">
-                    <div class="invoice-num">
-                      <div>{{date('d/m/Y' ,strtotime( date('Y-m-d')))}}</div>
-                    </div>
-                  </div>													
                 </div>
               </div>
               <!-- Row end -->
@@ -213,7 +207,7 @@
                             Patrocionamiento de {{$race->name}}
                           </td>
                           <td></td>
-                          <td >{{$race->price}} €</td>
+                          <td >{{$race->sponsor_price}} €</td>
                         </tr>
                         @endforeach
                         

@@ -26,6 +26,7 @@
                                         <div class="card-img">
                                             <img src="{{asset('storage/image/'.$photo->photo)}}" class="img-fluid">
                                         </div>
+                                        <div style="text-align: left;" class="card-img-overlay"><a href="{{route('race.delImage', [$race, $photo->id])}}"><img width="20" height="20" src="{{asset('img/delete.svg')}}"></a></div>
                                     </div>
                                 </div>
                             </div>
@@ -36,6 +37,7 @@
                                         <div class="card-img">
                                             <img src="{{asset('storage/image/'.$photo->photo)}}" class="img-fluid">
                                         </div>
+                                        <div style="text-align: left;" class="card-img-overlay"><a href="{{route('race.delImage', [$race, $photo->id])}}"><img width="20" height="20" src="{{asset('img/delete.svg')}}"></a></div>
                                     </div>
                                 </div>
                             </div>

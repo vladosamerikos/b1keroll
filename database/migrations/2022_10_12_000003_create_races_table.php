@@ -25,6 +25,7 @@ class CreateRacesTable extends Migration
             $table->time('start_time');
             $table->string('start_point');
             $table->string('promotional_poster');
+            $table->float('sponsor_price');
             $table->float('price');
             $table->boolean('active')->default(1);
             $table->timestamps();

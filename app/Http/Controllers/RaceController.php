@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Sponsor;
 use Illuminate\Http\Request;
 use ErrorException;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use PDF;
@@ -29,13 +30,23 @@ class RaceController extends Controller
     public function createStore(Request $request){
 
         $request->validate([
+            'unevenness' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10048',
             'promotional_poster' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10048',
         ]);
         $img_path = $request->file('promotional_poster')->store('image/races', 'public');
+        
+        $id=Race::latest()->first()->id+1;
+
+        $image = $request->file('unevenness');
+        $unevenessName = 'uneveness.'.$image->extension(); 
+        $image->move(public_path('/storage/image/uneveness/'.$id),$unevenessName);
+
+        $uneveness_path = 'uneveness/'.$id.'/'.$unevenessName;
+
         Race::create([
             'name'=>request('name'),
             'description'=>request('description'),
-            'unevenness'=>request('unevenness'),
+            'unevenness'=>$uneveness_path,
             'map_frame'=>request('map_frame'),
             'number_of_competitors'=>request('number_of_competitors'),
             'length'=>request('length'),
@@ -43,7 +54,8 @@ class RaceController extends Controller
             'start_time'=>request('start_time'),
             'start_point'=>request('start_point'),
             'promotional_poster'=>$img_path,
-            'price'=>request('price')
+            'price'=>request('price'),
+            'sponsor_price'=>request('sponsor_price')
         ]);
         return redirect()->route('race.list');
     }
@@ -67,6 +79,7 @@ class RaceController extends Controller
     public function editStore(Request $request, Race $race){
 
         $request->validate([
+            'unevenness' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10048',
             'promotional_poster' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10048',
         ]);
 
@@ -87,15 +100,37 @@ class RaceController extends Controller
             echo "</br> Foto anterior";
         }
 
+        if ($request->file('unevenness')){
+            // Delete old img
+            $uneven_path =storage_path().'/app/public/image/'.$race->unevenness;
+            try{
+                unlink($uneven_path);
+            }catch (ErrorException $e){
+                echo "La foto no existe";
+            }
+
+            // Update new img  
+            $id = $race->id;
+            $image = $request->file('unevenness');
+            $unevenessName = 'uneveness.'.$image->extension(); 
+            $image->move(public_path('/storage/image/uneveness/'.$id),$unevenessName);
+            $uneveness_path = 'uneveness/'.$id.'/'.$unevenessName;
+
+
+            $race->unevenness = $uneveness_path;
+        }else{
+            echo "</br> Uneveness anterior";
+        }
+
         $race->name=request('name');
         $race->description=request('description');
-        $race->unevenness=request('unevenness');
         $race->map_frame=request('map_frame');
         $race->number_of_competitors=request('number_of_competitors');
         $race->length=request('length');
         $race->start_date=request('start_date');
         $race->start_time=request('start_time');
         $race->start_point=request('start_point');
+        $race->sponsor_price=request('sponsor_price');
         $race->price=request('price');
         $race->save();
 
@@ -137,6 +172,21 @@ class RaceController extends Controller
         $photosRace->save();
         return response()->json(['success'=>$imageName]);
     }
+
+    public function delImage( Race $race, PhotosRace $image, Request $request){
+
+        $path = public_path("storage/image/".$image->photo);
+        $format_path = str_replace("/", "\\", $path);
+        if (@unlink($format_path)) {
+            echo"file exist and deleted";
+            $image->delete();
+        }else{
+            echo"file dont exist";
+        }
+        return redirect()->route('race.uploadimages', ['race'=>$race]);
+    }
+
+
 
     public function editInsurances(Race $race){
         $insurances = Insurance::where('active',1)->get();
@@ -228,21 +278,42 @@ class RaceController extends Controller
     }
 
 
-    public function showRegister(Race $race){
+    public function getEmail(Race $race){
 
-        if (Auth::check()) {
+        return view('general.getemail',
+        [
+            'race'=>$race
+        ]);
+    }
+
+    public function checkEmail(Race $race, Request $request){
+
+        $user = User::where('email', $request->input('email'))->first();
+
+
+        if ($user) {
+            // Federado
             $insurances= $race->insurances;
-            return view('general.registerrace',
+            return view('general.getinsurance',
             [
                 'race'=>$race,
+                'user'=>$user,
                 'insurances'=>$insurances
             ]);
-        }else{
-            return view('general.registeruserrace',
-            [
-                'race'=>$race
-            ]);
+        } else {
+            echo "No federado";
+            // No federado
+            return redirect()->route('race.register', $race);
         }
+
+    }
+
+    public function showRegister(Race $race){
+
+        return view('general.userregister',
+        [
+            'race'=>$race
+        ]);
     }
 
     public function userRegister(Race $race, Request $request){
@@ -255,7 +326,6 @@ class RaceController extends Controller
             'skill' => 'required|string',
             'dni' => 'required|string|max:9|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:3|confirmed',
         ]);
 
         $data = $request->all();
@@ -270,20 +340,31 @@ class RaceController extends Controller
             'skill' => $data['skill'],
             'dni' => $data['dni'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'password' => Hash::make('123'),
         ]);
         
-        Auth::login($user);
+        $insurances= $race->insurances;
+        
+        return view('general.getinsurance',
+        [
+            'race'=>$race,
+            'user'=>$user,
+            'insurances'=>$insurances
+        ]);
 
-        return redirect()->route('race.register',$race);
     }
 
-    public function raceRegister(Race $race){
-        $user = Auth::user();
+    public function prePayment(Race $race, User $user){
+        print $race->name;
+        echo "<br>";
+        print $user->name;
+        echo "<br>";
+
         $insurance = request('insurance');
-        $lastnum= count($race->runners)+1;
-        $race->runners()->attach([$user->id => ['insurance_id' => $insurance, 'runner_number' => $lastnum, 'is_paid' => false]]);
-        print "Apuntado a la carrera";
+        print $insurance;
+        // $lastnum= count($race->runners)+1;
+        // $race->runners()->attach([$user->id => ['insurance_id' => $insurance, 'runner_number' => $lastnum, 'is_paid' => false]]);
+        // print "Apuntado a la carrera";
     }
 
     public function showAll(){

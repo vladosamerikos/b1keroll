@@ -24,6 +24,7 @@
                   <th scope="col">Día</th>
                   <th scope="col">Hora</th>
                   <th scope="col">Salida</th>
+                  <th scope="col">Patrocionar</th>
                   <th scope="col">Precio</th>
                   <th scope="col">Subir Imágenes</th>
                   <th scope="col">Participantes</th>
@@ -36,10 +37,8 @@
                 @foreach ($races as $race)
                     <tr  class="align-middle text-center">
                         <th>{{$race->name}}</th>
-                        <td>
-                          {{$race->description}}
-                        </td>
-                        <td>{{$race->unevenness}}</td>
+                        <td>{{ Str::limit($race->description, 8, '...')}}</td>
+                        <td><img class="rounded" width="100" src="{{ asset('storage/image/' .$race->unevenness) }}" /></td>
                         <td><img class="rounded" width="100" src="{{ asset('storage/' .$race->promotional_poster) }}" /></td>
                         <td><iframe src="{{$race->map_frame}}"
                         width="100" height="100" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -49,6 +48,7 @@
                         <td>{{date('d/m/Y' ,strtotime($race->start_date))}}</td>
                         <td>{{$race->start_time}}</td>
                         <td>{{$race->start_point}}</td>
+                        <td>{{$race->sponsor_price}} €</td>
                         <td>{{$race->price}} €</td>
                         <td><a href="{{route('race.uploadimages', $race)}}"><img class='table-icon' src="{{ asset('img/add-image.svg') }}" alt="" srcset=""></a></td>
                         <td><a href="{{route('race.listrunners', $race)}}"><img class='table-icon' src="{{ asset('img/user-list.svg') }}" alt="" srcset=""></a></td>

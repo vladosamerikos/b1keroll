@@ -14,12 +14,12 @@
           <div class="col-md-6">
               <h1 class="display-5 fw-bolder">{{$race->name}}</h1>
               <div>
-                  <span><img class='table-icon' src="{{ asset('img/insurance.svg') }}" alt="" srcset="" width="30" height="30">  {{$race->price}} €</span>
+                  <span><img class='table-icon' src="{{ asset('img/money.svg') }}" alt="" srcset="" width="30" height="30">  {{$race->price}} €</span>
                   <br>
                   <span><img class='table-icon' src="{{ asset('img/distance.svg') }}" alt="" srcset="" width="30" height="30">  {{$race->length}} KMs</span>
               </div>
               <p>{{$race->description}}</p>
-              <a href="{{ route('race.register', $race) }}" class="btn btn-primary">Apuntarse</a>
+              <a href="{{ route('race.getemail', $race) }}" class="btn btn-primary">Apuntarse</a>
           </div>
       </div>
       <br>

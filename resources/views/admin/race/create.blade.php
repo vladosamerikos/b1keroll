@@ -67,20 +67,19 @@
                                 @enderror
                             </div>
                         </div>
+
                         <div class="row mb-3">
-                            <label for="unevenness" class="col-md-4 col-form-label text-md-end">{{ __('Desnivel') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="unevenness" type="text" class="form-control @error('unevenness') is-invalid @enderror" name="unevenness" value="{{ old('unevenness') }}" required autocomplete="unevenness" autofocus>
-
-                                @error('unevenness')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                            <label class="col-md-4 col-form-label text-md-end"  for="unevenness">{{ __('Desnivell') }}</label>
+                            <input 
+                                type="file" 
+                                name="unevenness" 
+                                id="unevenness"
+                                class="form-control @error('image') is-invalid @enderror">
+              
+                            @error('image')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
-
                         <div class="row mb-3">
                             <label for="number_of_competitors" class="col-md-4 col-form-label text-md-end">{{ __('Número de participantes') }}</label>
 
@@ -152,7 +151,19 @@
                             </div>
                         </div>
 
+                        <div class="row mb-3">
+                            <label for="sponsor_price" class="col-md-4 col-form-label text-md-end">{{ __('Precio de patrocionamiento') }}</label>
 
+                            <div class="col-md-6">
+                                <input id="sponsor_price" type="number" step="0.01" class="form-control @error('sponsor_price') is-invalid @enderror" name="sponsor_price" value="{{ old('sponsor_price') }}" required autocomplete="sponsor_price" autofocus>
+
+                                @error('sponsor_price')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
                         <div class="row mb-3">
                             <label for="price" class="col-md-4 col-form-label text-md-end">{{ __('Precio') }}</label>
 
