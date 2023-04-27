@@ -28,182 +28,103 @@
         </style>
     </head>
     <body>
-    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        <img width="100" height="100" src=" {{ asset('img/logo-color.svg') }}"/>
+    <nav class="navbar navbar-expand-lg tarjeta-color shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url('/') }}">
+                <img style="border-radius: 15px;" class="hover-logo" width="100" height="100" src=" {{ asset('img/logo-color.svg') }}"/>
+            </a>
+            <ul class="navbar-nav ms-auto nav-link" >
+        
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <!-- <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav"> -->
+                <li class="nav-item navbar collapse navbar-collapse navbar-expand-lg bg-body-tertiary" id="navbarNavDropdown">
+                    <a class="nav-link" href="{{ route('race.showAll') }}">Todas las carreras</a>
+                </li>
+                <li class="nav-item navbar collapse navbar-collapse navbar-expand-lg bg-body-tertiary">
+                    <a class="nav-link" href="{{ route('race.showUpcoming') }}">Próximas carreras</a>
+                </li>
+                <li class="nav-item navbar collapse navbar-collapse navbar-expand-lg bg-body-tertiary">
+                    <a class="nav-link" href="{{ route('race.showDone') }}">Carreras Finalizadas</a>
+                </li>
+            <!-- Authentication Links -->
+            @guest
+                @if (Route::has('login'))
+                    <li class="nav-item navbar collapse navbar-collapse navbar-expand-lg bg-body-tertiary" >
+                        <a class="nav-link" href="{{ route('login') }}">{{ __('Iniciar Sesión') }}</a>
+                    </li>
+                @endif
+
+                @if (Route::has('register'))
+                    <li class="nav-item navbar collapse navbar-collapse navbar-expand-lg bg-body-tertiary">
+                        <a class="nav-link" href="{{ route('register') }}">{{ __('Registrarse') }}</a>
+                    </li>
+                @endif
+            @else
+                
+                <li class="nav-item dropdown">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        {{ Auth::user()->name }}
                     </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-            <ul class="navbar-nav ms-auto" >
-            <nav class="navbar navbar-expand-lg bg-body-tertiary">
-                <div class="container-fluid">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                        <a class="nav-link" href="{{ route('race.showAll') }}">Todas las carreras</a>
-                        </li>
-                        <li class="nav-item">
-                        <a class="nav-link" href="{{ route('race.showUpcoming') }}">Próximas carreras</a>
-                        </li>
-                        <li class="nav-item">
-                        <a class="nav-link" href="{{ route('race.showDone') }}">Carreras Finalizadas</a>
-                        </li>
-                    </ul>
-                    </div>
-                </div>
-                </nav>
-                    <!-- Authentication Links -->
-                    @guest
-                        @if (Route::has('login'))
-                            <li class="nav-item navbar navbar-expand-lg bg-body-tertiary" >
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Iniciar Sesión') }}</a>
-                            </li>
-                        @endif
 
-                        @if (Route::has('register'))
-                            <li class="nav-item navbar navbar-expand-lg bg-body-tertiary">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Registrarse') }}</a>
-                            </li>
-                        @endif
-                    @else
-                        
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }}
-                            </a>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
 
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
-                                                    document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>
-                    @endguest
-                </ul>
-                </nav>
-                <div class=" flex justify-center  bg-gray-100">                
-                    @foreach($races as $race)
-                    <div class="card" style="width: 18rem; border: 1px solid black; margin: 10px 10px; height: 400px; margin-bottom: 5%; margin-top: 5%;" >
-                        <div style="margin: auto; ">
-                            <img src="{{ asset('storage/' .$race->promotional_poster) }}" class="imagen-tarjeta" alt="...">
-                            <div class="body-tarjeta ">
-                                <h5 class="card-title">{{$race->name}}</h5>
-                                <p class="card-text">{{$race->description}}</p>
-                                <p class="boton-detalle"><a href="{{ route('race.details', $race) }}" class="btn-primary btn ">Ver detalles</a></p>
-                            </div>
-                        </div>  
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
                     </div>
-                    @endforeach 
-                </div>
-                <div class="display-5 fw-bolder text-center back-image">
-                    <div class="pt-5 titulo-interes">INFORMACIÓN DE INTERÉS</div>
-                    <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
-                        <a href="#" class="btn btn-primary mt-5">Fotos y Vídeos</a>
-                        <a href="#" class="btn btn-primary mt-2">Clasificaciones</a>
-                        <a href="#" class="btn btn-primary mt-2">Inscripciones</a>
-                        <a href="#" class="btn btn-primary mt-2 mb-5">Próximas carreras</a>
+                </li>
+            @endguest
+        </ul>
+    </nav>
+    <div class="container">
+        <div class=" flex justify-center">                
+            @foreach($races as $race)
+            <div class="card tarjeta-color" style="width: 18rem; border: 1px solid black; margin: 10px 10px; height: 400px; margin-bottom: 5%; margin-top: 5%;" >
+                <div style="margin: auto; ">
+                    <img src="{{ asset('storage/' .$race->promotional_poster) }}" class="imagen-tarjeta-main" alt="...">
+                    <div class="body-tarjeta ">
+                        <h5 class="card-title">{{$race->name}}</h5>
+                        <p class="card-text">{{$race->description}}</p>
+                        <p class="boton-detalle"><a href="{{ route('race.details', $race) }}" class="btn-primary btn ">Ver detalles</a></p>
                     </div>
-                </div>
+                </div>  
             </div>
+            @endforeach
+        </div>
+    </div>
+    <div class="display-5 fw-bolder text-center back-image">
+        <div class="pt-5 titulo-interes">INFORMACIÓN DE INTERÉS</div>
+            <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+                <a href="#" class="btn btn-primary mt-5">Fotos y Vídeos</a>
+                <a href="#" class="btn btn-primary mt-2">Clasificaciones</a>
+                <a href="{{ route('race.showAll') }}" class="btn btn-primary mt-2">Inscripciones</a>
+                <a href="{{ route('race.showUpcoming') }}" class="btn btn-primary mt-2 mb-5">Próximas carreras</a>
+            </div>
+        </div>
+    </div>
     <p class="pt-5 mt-5 fw-bolder display-5 text-center">PATROCINADORES</p>
     <div class="div-sponsors">
-        <div title="Click to flip" class="sponsor">
-            <div class="sponsorFlip">
-                <img alt="More about bimbo" src="{{ asset('img/bimbo.png') }}" class="photo">
-            </div>
+        @foreach($sponsors as $sponsor)
+            <div class="sponsor">
+                <div class="sponsorFlip ">
+                    <img src="{{ asset('storage/' .$sponsor->logo) }}" class="photo">
+                </div>
 
-            <div class="sponsorData">
-                <div class="sponsorDescription">
-                    The company that redefined web search.
-                </div>
-                <div class="sponsorURL">
-                    <a href="http://www.bimbo.com/">http://www.bimbo.com/ </a>
+                <div class="sponsorData">
+                    <div class="sponsorDescription">
+                        The company that redefined web search.
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div title="Click to flip" class="sponsor">
-            <div class="sponsorFlip ">
-                <img alt="More about bergamont" src="{{ asset('img/bergamont.png') }}" class="photo">
-            </div>
-
-            <div class="sponsorData">
-                <div class="sponsorDescription">
-                    The company that redefined web search.
-                </div>
-                <div class="sponsorURL">
-                    <a href="http://www.bergamont.com/">http://www.bergamont.com/ </a>
-                </div>
-            </div>
-        </div>
-
-        <div title="Click to flip" class="sponsor">
-            <div class="sponsorFlip ">
-                <img alt="More about Mini" src="{{ asset('img/hyundai.svg') }}" class="photo">
-            </div>
-
-            <div class="sponsorData">
-                <div class="sponsorDescription">
-                    The company that redefined web search.
-                </div>
-                <div class="sponsorURL">
-                    <a href="http://www.hyundai.es/">http://www.hyundai.es/ </a>
-                </div>
-            </div>
-        </div>
-        <div title="Click to flip" class="sponsor">
-            <div class="sponsorFlip ">
-                <img alt="More about bridgestone" src="{{ asset('img/bridgestone.png') }}" class="photo">
-            </div>
-
-            <div class="sponsorData">
-                <div class="sponsorDescription">
-                    The company that redefined web search.
-                </div>
-                <div class="sponsorURL">
-                    <a href="http://www.bridgestone.com/">http://www.bridgestone.com/ </a>
-                </div>
-            </div>
-        </div>
-        <div title="Click to flip" class="sponsor">
-            <div class="sponsorFlip ">
-                <img alt="More about decathlon" src="{{ asset('img/decathlon.svg') }}" class="photo">
-            </div>
-
-            <div class="sponsorData">
-                <div class="sponsorDescription">
-                    The company that redefined web search.
-                </div>
-                <div class="sponsorURL">
-                    <a href="http://www.decathlon.com/">http://www.decathlon.com/ </a>
-                </div>
-            </div>
-        </div>
-        <div title="Click to flip" class="sponsor">
-            <div class="sponsorFlip ">
-                <img alt="More about citroen" src="{{ asset('img/citroen.png') }}" class="photo">
-            </div>
-
-            <div class="sponsorData">
-                <div class="sponsorDescription">
-                    The company that redefined web search.
-                </div>
-                <div class="sponsorURL">
-                    <a href="http://www.citroen.com/">http://www.citroen.com/ </a>
-                </div>
-            </div>
-        </div>
+        @endforeach
     </div>
     <div>
         <footer class="bg-light text-center text-lg-start mt-5">

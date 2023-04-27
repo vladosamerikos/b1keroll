@@ -23,10 +23,10 @@
 <body>
     
     <div id="app">
-    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+    <nav class="navbar navbar-expand-lg tarjeta-color">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ url('/') }}">
-                <img width="100" height="100" src=" {{ asset('img/logo-color.svg') }}"/>
+                <img style="border-radius: 15px;" class="hover-logo" width="100" height="100" src=" {{ asset('img/logo-color.svg') }}"/>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                 <span class="navbar-toggler-icon"></span>

@@ -220,6 +220,7 @@ class RaceController extends Controller
     }
 
     public function showRaceDetails(Race $race){
+        
         return view('general.race',
         [
             'race'=>$race
@@ -236,7 +237,6 @@ class RaceController extends Controller
                 'race'=>$race,
                 'insurances'=>$insurances
             ]);
-            echo('logined');
         }else{
             return view('general.registeruserrace',
             [

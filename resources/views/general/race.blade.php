@@ -44,8 +44,7 @@
         </div>
       </div>
         <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-          <iframe src="{{$race->map_frame}}" style="border:0;" allowfullscreen="" loading="lazy" class=" mt-5 map-frame" referrerpolicy="no-referrer-when-downgrade"></iframe>
-          <p class="card-title mt-1">{{$race->unevenness}}</p>
+          <iframe src="{{$race->map_frame}}" style="border:0; width: 80%;" allowfullscreen="" loading="lazy" class=" mt-5 map-frame" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
         <div class="tab-pane fade " id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
           
