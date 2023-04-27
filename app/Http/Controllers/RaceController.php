@@ -34,8 +34,11 @@ class RaceController extends Controller
             'promotional_poster' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10048',
         ]);
         $img_path = $request->file('promotional_poster')->store('image/races', 'public');
-        
-        $id=Race::latest()->first()->id+1;
+        try {
+            $id=Race::latest()->first()->id+1;
+        } catch (\Throwable $th) {
+            $id=1;
+        }
 
         $image = $request->file('unevenness');
         $unevenessName = 'uneveness.'.$image->extension(); 
