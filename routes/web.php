@@ -104,7 +104,7 @@ Route::get('/races/listadoacabadas', [App\Http\Controllers\RaceController::class
 Route::get('/race/runners/{race}', [App\Http\Controllers\RaceController::class, 'listRunners'])->name('race.listrunners'); 
 
 //PayPal
-Route::post('pay', [PaymentController::class, 'pay'])->name('payment');
+Route::post('/paypal/pay', [PaymentController::class, 'pay'])->name('payment');
 
-Route::get('success', [PaymentController::class, 'success']);
-Route::get('error', [PaymentController::class, 'error']);
+Route::get('/paypal/success', [PaymentController::class, 'success']);
+Route::get('/paypal/error', [PaymentController::class, 'error']);
