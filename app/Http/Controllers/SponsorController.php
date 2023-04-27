@@ -117,29 +117,6 @@ class SponsorController extends Controller
         
     }
 
-    public function generateInvoice(Sponsor $sponsor)
-    {
-        $races=$sponsor->races;
-
-        $subtotal= 0;
-        foreach($races as $race){
-            $subtotal+=$race['sponsor_price'];
-        }
-        # Coste del plano principal
-        if ($sponsor->main_plain == 1){
-            $subtotal +=200;
-        }
-        $total = $subtotal*1.21;
-
-        $data = [
-            'sponsor' => $sponsor,
-            'races' =>$races,
-            'subtotal' =>$subtotal,
-            'total' =>$total,
-        ];
-        return view('admin.sponsor.invoice',$data);
-    }
-
     public function generateInvoicePDF(Sponsor $sponsor)
     {
         $races=$sponsor->races;
