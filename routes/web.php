@@ -76,7 +76,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/', [App\Http\Controllers\RaceController::class, 'mainPageList'])->name('general.race');
+Route::get('/', [App\Http\Controllers\InsuranceController::class, 'mainPageList'])->name('general.race');
+
 
 Route::get('/race/{race}', [App\Http\Controllers\RaceController::class, 'showRaceDetails'])->name('race.details');
 

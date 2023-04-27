@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Insurance;
 use App\Http\Controllers\Controller;
+use App\Models\Sponsor;
+use App\Models\Race;
+
 use Illuminate\Http\Request;
 
 class InsuranceController extends Controller
@@ -61,4 +64,32 @@ class InsuranceController extends Controller
 
         return redirect()->route('insurance.list');
     }
+
+    public function showSponsors(){
+        $sponsors = Sponsor::
+            where('main_plain',1 )
+            ->get();
+        return view('welcome',
+        [
+            'sponsors'=>$sponsors
+        ]);
+    }
+    public function mainPageList(){
+        $races = Race::
+            where('active',1)
+            ->where('start_date' , '>=' , date('Y-m-d'))
+            ->orderBy('start_date', 'asc')
+            ->limit(4)
+            ->get();
+        $sponsors = Sponsor::
+            where('main_plain',1)
+            ->get();
+
+        return view('welcome',
+        [
+            'races'=>$races,
+            'sponsors'=>$sponsors
+        ]);
+    }
+
 }
