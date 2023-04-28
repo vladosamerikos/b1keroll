@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-04-2023 a las 14:06:22
+-- Tiempo de generación: 28-04-2023 a las 09:26:56
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 7.4.33
 
@@ -45,12 +45,13 @@ CREATE TABLE `insurances` (
 --
 
 INSERT INTO `insurances` (`id`, `cif`, `name`, `address`, `price_per_race`, `active`, `created_at`, `updated_at`) VALUES
-(7, '08915', 'Liberty Seguros', 'Seguros de la Libertad', 24, 1, '2023-03-10 08:03:28', '2023-03-10 08:03:28'),
-(8, '08917', 'Repsol Seguros', 'Seguros de Repsol', 20, 1, '2023-03-10 08:03:28', '2023-03-10 08:03:28'),
-(9, '08918', 'Mapfre Seguros', 'Seguros de Mapfre', 28, 1, '2023-03-10 08:03:28', '2023-03-10 08:03:28'),
-(10, '154263', 'Seguros Axa', 'Calle Fontaneda, SN', 14, 1, '2023-04-07 09:55:35', '2023-04-07 09:55:35'),
-(11, '12546', 'Seguros Reale', 'Avenida Concordia, 4', 24, 1, '2023-04-07 09:56:04', '2023-04-07 09:56:04'),
-(12, '4515', 'Seguros Ocaso', 'Calle San Juan', 25, 1, '2023-04-07 09:56:21', '2023-04-07 09:56:21');
+(1, '7412', 'Liberty Seguros', 'Seguros de la Libertad', 25, 1, '2023-04-28 04:26:08', '2023-04-28 04:26:08'),
+(2, '78845', 'Repsol Seguros', 'Calle de la Gasolina', 14, 1, '2023-04-28 04:26:30', '2023-04-28 04:26:30'),
+(3, '74152', 'Mapfre Seguros', 'Seguros de Mapfre', 23, 1, '2023-04-28 04:26:49', '2023-04-28 04:26:49'),
+(4, '874562', 'Axa Seguros', 'Seguros de Axa', 15, 1, '2023-04-28 04:27:16', '2023-04-28 04:27:16'),
+(5, '784512', 'Seguros Ocaso', 'Seguros del Ocaso', 14, 1, '2023-04-28 04:27:30', '2023-04-28 04:27:30'),
+(6, '741852', 'Seguros Reale', 'Seguros de Reale', 47, 1, '2023-04-28 04:27:44', '2023-04-28 04:27:44'),
+(7, '123321', 'Olga', 'mi casa', 3000, 1, '2023-04-28 05:18:08', '2023-04-28 05:18:08');
 
 -- --------------------------------------------------------
 
@@ -77,7 +78,27 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (6, '2022_10_13_000007_create_sponsored_table', 1),
 (7, '2022_10_13_000008_create_race_insurance_table', 1),
 (8, '2022_10_13_000009_create_photos_race_table', 1),
-(9, '2022_10_13_000010_create_runner_number_table', 1);
+(9, '2022_10_13_000010_create_runner_number_table', 1),
+(10, '2023_04_26_205118_create_payments_table', 1),
+(11, '2023_04_27_200203_create_transactions_table', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `payments`
+--
+
+CREATE TABLE `payments` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `payment_id` varchar(255) NOT NULL,
+  `payer_id` varchar(255) NOT NULL,
+  `payer_email` varchar(255) NOT NULL,
+  `amount` double(10,2) NOT NULL,
+  `currency` varchar(255) NOT NULL,
+  `payment_status` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -120,7 +141,7 @@ CREATE TABLE `photos_race` (
 CREATE TABLE `races` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
-  `description` varchar(10000) NOT NULL,
+  `description` varchar(255) NOT NULL,
   `unevenness` varchar(255) NOT NULL,
   `map_frame` varchar(1000) NOT NULL,
   `number_of_competitors` int(11) NOT NULL,
@@ -129,6 +150,7 @@ CREATE TABLE `races` (
   `start_time` time NOT NULL,
   `start_point` varchar(255) NOT NULL,
   `promotional_poster` varchar(255) NOT NULL,
+  `sponsor_price` double(8,2) NOT NULL,
   `price` double(8,2) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -139,13 +161,13 @@ CREATE TABLE `races` (
 -- Volcado de datos para la tabla `races`
 --
 
-INSERT INTO `races` (`id`, `name`, `description`, `unevenness`, `map_frame`, `number_of_competitors`, `length`, `start_date`, `start_time`, `start_point`, `promotional_poster`, `price`, `active`, `created_at`, `updated_at`) VALUES
-(7, 'Holy Run', 'Carrera de la HolyRun', '3', 'https://www.google.com/maps/embed?pb=!1m24!1m12!1m3!1d11957.113888086778!2d2.205203891325467!3d41.476562144809336!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m9!3e1!4m3!3m2!1d41.4789396!2d2.1930018!4m3!3m2!1d41.469293199999996!2d2.2330848!5e0!3m2!1sca!2ses!4v1678439834234!5m2!1sca!2ses', 51, 5.00, '2023-05-03', '08:00:00', 'Plaça de la Vila', 'image/races/GOXdKogYbwsbeTfGO3R7GScUIJUMbigIX8OuOUia.jpg', 23.00, 1, '2023-03-10 08:03:28', '2023-03-10 08:17:34'),
-(8, 'Cursa Bimbo', 'Carrera de la Bimbo', '5', 'https://www.google.com/maps/embed?pb=!1m24!1m12!1m3!1d11957.113888086778!2d2.205203891325467!3d41.476562144809336!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m9!3e1!4m3!3m2!1d41.4789396!2d2.1930018!4m3!3m2!1d41.469293199999996!2d2.2330848!5e0!3m2!1sca!2ses!4v1678439834234!5m2!1sca!2ses', 23, 5.00, '2023-04-23', '09:00:00', 'Plaça de les Olives', 'image/races/SIAHCGqAXZlBfXWOARVGkfT4bibxgD8FPHx5UPYF.png', 20.00, 1, '2023-03-10 08:03:28', '2023-03-10 08:17:46'),
-(9, 'Automobile Park Run', 'Carrera del Automobile Park Run', '13', 'https://www.google.com/maps/embed?pb=!1m24!1m12!1m3!1d11957.113888086778!2d2.205203891325467!3d41.476562144809336!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m9!3e1!4m3!3m2!1d41.4789396!2d2.1930018!4m3!3m2!1d41.469293199999996!2d2.2330848!5e0!3m2!1sca!2ses!4v1678439834234!5m2!1sca!2ses', 91, 5.00, '2024-05-03', '07:00:00', 'Plaça del Diamant', 'image/races/35R945hg1PmOeLhZU5feKF3g40ndusEqO2U9pEMe.png', 57.00, 1, '2023-03-10 08:03:28', '2023-03-10 08:17:56'),
-(10, 'Citroën', 'Desde 1919, la marca Citroën ha mostrado audacia y un punto de vista humano inquebrantable. Tiene más de 100 años de patrimonio y más de 300 modelos, algunos de los cuales han pasado a la historia. Te invitamos a adentrarte en esta historia épica que comenzó con el genio visionario de André Citroën.', '24', 'https://www.google.com/maps/embed?pb=!1m24!1m12!1m3!1d23923.744407105387!2d2.1945510192620463!3d41.45076273894547!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m9!3e1!4m3!3m2!1d41.441012099999995!2d2.222839!4m3!3m2!1d41.4646858!2d2.2049811!5e0!3m2!1sca!2ses!4v1680073279407!5m2!1sca!2ses', 12, 5.40, '2023-03-07', '10:00:00', 'Carretera de les Aigües', 'image/races/tN98DgcVBjWCL8Nq3kjbX6twF837WAOtJ05rCTFb.png', 12.00, 1, '2023-03-29 05:02:43', '2023-03-29 05:32:16'),
-(11, 'Hyundai', 'Hyundai Motor Company es el mayor fabricante surcoreano de automóviles. Su sede principal está en la prefectura de Yangjae-Dong en la ciudad de Seocho-Gu en Seúl. Es el sexto fabricante de automóviles más grande del mundo.', '12', 'https://www.google.com/maps/embed?pb=!1m24!1m12!1m3!1d47841.03686756129!2d2.1710909983589417!3d41.45950976456693!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m9!3e1!4m3!3m2!1d41.441012099999995!2d2.222839!4m3!3m2!1d41.481992!2d2.2100492!5e0!3m2!1sca!2ses!4v1680074755360!5m2!1sca!2ses', 34, 14.60, '2023-04-30', '09:00:00', 'Carrer dels Mil Dimonis', 'image/races/WKrh0xrKE4cdlTYoLmNMQ8iJuhZ4r2ZGcPd6RK9B.svg', 23.00, 1, '2023-03-29 05:29:04', '2023-03-29 05:29:04'),
-(12, 'La Marató', 'Cursa de TV3 destinada a la recaudación para poder ayudar a los más necesitados', '25', 'https://www.google.com/maps/embed?pb=!1m26!1m12!1m3!1d23920.47787243618!2d2.226076169282727!3d41.4596197345024!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m11!3e1!4m3!3m2!1d41.4447196!2d2.2384512!4m5!1s0x12a4bba4debcca15%3A0xf1fed24e4fa55e3f!2sPitch%20and%20Putt%20Badalona!3m2!1d41.47459!2d2.24527!5e0!3m2!1sca!2ses!4v1680868983932!5m2!1sca!2ses', 34, 26.00, '2023-04-20', '08:00:00', 'Centre', 'image/races/Ta832uupbkTBgKakw7uNdd251yRtaLcG7K2vDKr8.jpg', 10.00, 1, '2023-04-07 10:03:46', '2023-04-07 10:03:46');
+INSERT INTO `races` (`id`, `name`, `description`, `unevenness`, `map_frame`, `number_of_competitors`, `length`, `start_date`, `start_time`, `start_point`, `promotional_poster`, `sponsor_price`, `price`, `active`, `created_at`, `updated_at`) VALUES
+(1, 'HolyRun', 'Carrera de la Holy Run', 'uneveness/1/uneveness.png', 'https://www.google.com/maps/embed?pb=!1m24!1m12!1m3!1d23918.981762077085!2d2.2150522614504666!3d41.46367582267532!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m9!3e1!4m3!3m2!1d41.449823699999996!2d2.2332742999999997!4m3!3m2!1d41.4804908!2d2.2278621999999997!5e0!3m2!1sca!2ses!4v1682662476200!5m2!1sca!2ses', 24, 5.00, '2023-05-28', '08:15:00', 'Carrer Balmes', 'image/races/ML2g1YWSNZITH8TzXtJXIbnOO2XiXO60avbI2bbo.jpg', 4.00, 23.00, 1, '2023-04-28 04:16:33', '2023-04-28 05:17:19'),
+(2, 'Cursa Bimbo', 'Cursa de la Bimbo', 'uneveness/2/uneveness.png', 'https://www.google.com/maps/embed?pb=!1m24!1m12!1m3!1d23918.981762077085!2d2.2150522614504666!3d41.46367582267532!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m9!3e1!4m3!3m2!1d41.449823699999996!2d2.2332742999999997!4m3!3m2!1d41.4804908!2d2.2278621999999997!5e0!3m2!1sca!2ses!4v1682662476200!5m2!1sca!2ses', 12, 6.00, '2023-05-24', '10:25:00', 'Carrer de la Vila', 'image/races/mkVypTrs6M9V3FPTrMYGn3sMdPmiFaE7WMdWAms7.png', 6.00, 12.00, 1, '2023-04-28 04:17:31', '2023-04-28 04:17:31'),
+(3, 'Automobile Park Run', 'Cursa del Salón del Automóvil', 'uneveness/3/uneveness.png', 'https://www.google.com/maps/embed?pb=!1m24!1m12!1m3!1d23918.981762077085!2d2.2150522614504666!3d41.46367582267532!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m9!3e1!4m3!3m2!1d41.449823699999996!2d2.2332742999999997!4m3!3m2!1d41.4804908!2d2.2278621999999997!5e0!3m2!1sca!2ses!4v1682662476200!5m2!1sca!2ses', 52, 12.00, '2023-05-13', '10:00:00', 'Torres Petronas', 'image/races/vaZjm11Oh3IG2XVTLlzie3XSVYCdx8vomaPh7lD4.png', 14.00, 26.00, 1, '2023-04-28 04:18:30', '2023-04-28 04:18:30'),
+(4, 'Curse du Citroën', 'Cursa de la Citroën', 'uneveness/4/uneveness.png', 'https://www.google.com/maps/embed?pb=!1m24!1m12!1m3!1d23918.981762077085!2d2.2150522614504666!3d41.46367582267532!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m9!3e1!4m3!3m2!1d41.449823699999996!2d2.2332742999999997!4m3!3m2!1d41.4804908!2d2.2278621999999997!5e0!3m2!1sca!2ses!4v1682662476200!5m2!1sca!2ses', 47, 25.00, '2023-04-14', '15:00:00', 'Carrer de la Concòrdia', 'image/races/8vlyGyI2lmHQyazjSScOVkJrCvrQ428vISzAUmg5.png', 14.00, 23.00, 1, '2023-04-28 04:19:31', '2023-04-28 04:19:31'),
+(5, 'Hyundai España', 'Carrera de la Hyundai', 'uneveness/5/uneveness.png', 'https://www.google.com/maps/embed?pb=!1m24!1m12!1m3!1d23918.981762077085!2d2.2150522614504666!3d41.46367582267532!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m9!3e1!4m3!3m2!1d41.449823699999996!2d2.2332742999999997!4m3!3m2!1d41.4804908!2d2.2278621999999997!5e0!3m2!1sca!2ses!4v1682662476200!5m2!1sca!2ses', 14, 69.00, '2023-04-29', '12:00:00', 'Carrer d\'Aragó', 'image/races/uxppFKG5YGvvcpr2d4TlKt4iZ7cXA5I3sutAwNpu.svg', 15.00, 20.00, 1, '2023-04-28 04:20:38', '2023-04-28 04:20:38'),
+(6, 'La Marató', 'Carrera de La Marató de TV3', 'uneveness/6/uneveness.png', 'https://www.google.com/maps/embed?pb=!1m24!1m12!1m3!1d23918.981762077085!2d2.2150522614504666!3d41.46367582267532!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m9!3e1!4m3!3m2!1d41.449823699999996!2d2.2332742999999997!4m3!3m2!1d41.4804908!2d2.2278621999999997!5e0!3m2!1sca!2ses!4v1682662476200!5m2!1sca!2ses', 124, 25.00, '2023-05-01', '14:20:00', 'Carrer Prim', 'image/races/VestzpfK8iEp0aAWtTnMn5hepZdpFjbAu0QKkxya.jpg', 14.00, 25.00, 1, '2023-04-28 04:21:47', '2023-04-28 04:21:47');
 
 -- --------------------------------------------------------
 
@@ -158,6 +180,37 @@ CREATE TABLE `race_insurance` (
   `insurance_id` int(10) UNSIGNED NOT NULL,
   `race_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `race_insurance`
+--
+
+INSERT INTO `race_insurance` (`id`, `insurance_id`, `race_id`) VALUES
+(1, 1, 1),
+(2, 4, 1),
+(3, 2, 3),
+(4, 6, 3),
+(5, 1, 2),
+(6, 2, 2),
+(7, 3, 2),
+(8, 4, 2),
+(9, 5, 2),
+(10, 6, 2),
+(11, 1, 4),
+(12, 2, 4),
+(13, 3, 4),
+(14, 4, 4),
+(15, 5, 4),
+(16, 2, 5),
+(17, 3, 5),
+(18, 4, 5),
+(19, 5, 5),
+(20, 1, 6),
+(21, 2, 6),
+(22, 3, 6),
+(23, 4, 6),
+(24, 2, 1),
+(25, 7, 1);
 
 -- --------------------------------------------------------
 
@@ -175,6 +228,15 @@ CREATE TABLE `runner_number` (
   `is_paid` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `runner_number`
+--
+
+INSERT INTO `runner_number` (`id`, `user_id`, `race_id`, `insurance_id`, `runner_number`, `elapsed_time`, `is_paid`) VALUES
+(1, 2, 5, 3, 1, '19:05:08', 1),
+(2, 2, 6, 4, 1, NULL, 1),
+(3, 3, 1, 7, 1, '23:06:58', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -186,6 +248,18 @@ CREATE TABLE `sponsored` (
   `sponsor_id` int(10) UNSIGNED NOT NULL,
   `race_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `sponsored`
+--
+
+INSERT INTO `sponsored` (`id`, `sponsor_id`, `race_id`) VALUES
+(1, 1, 2),
+(2, 1, 4),
+(3, 1, 5),
+(4, 3, 3),
+(5, 5, 1),
+(6, 5, 2);
 
 -- --------------------------------------------------------
 
@@ -210,12 +284,38 @@ CREATE TABLE `sponsors` (
 --
 
 INSERT INTO `sponsors` (`id`, `cif`, `name`, `logo`, `address`, `main_plain`, `active`, `created_at`, `updated_at`) VALUES
-(10, '741852963', 'Mini España', 'image/sponsors/GA4cKfVtR8sCRcZBnoy624REN1G05LLxgH0gc4NQ.png', 'Calle de los Coches Pequeños', 1, 1, '2023-03-10 08:03:28', '2023-04-07 09:57:40'),
-(11, '7471852963', 'Hyundai España', 'image/sponsors/I42g12594dznOXkZLLO5nC46xi5vzs6Mqz9XiMF1.svg', 'Calle de los Coches Coreanos', 1, 1, '2023-03-10 08:03:28', '2023-04-07 09:58:09'),
-(12, '7417362963', 'Bimbo Ibérica', 'image/sponsors/YDg1YM2rgXMLMzep1lacxgBqtMsQJDsafMuHfBq0.png', 'Calle del buen pan', 1, 1, '2023-03-10 08:03:28', '2023-04-07 09:58:20'),
-(13, '154663', 'Bergamont SP', 'image/sponsors/KxSwcnZBbG9sJGFtxi1FyiGWzVCSlU2lTxrEW3O0.png', 'Calle Arbustos', 0, 1, '2023-04-07 09:57:21', '2023-04-07 09:57:21'),
-(14, '5142', 'Citroën SP', 'image/sponsors/idxD3wA0PblASSVP41KnKosarbWCrEZBpdHcZcE9.png', 'Calle Alhambra', 1, 1, '2023-04-07 09:58:47', '2023-04-07 09:58:47'),
-(15, '741852', 'BridgeStone Ibérica', 'image/sponsors/t4drCQsvbZqnvOaIxG11FtGMWZrWe90UpKtWZoDr.png', 'Calle de los rodillos', 1, 1, '2023-04-07 09:59:34', '2023-04-07 09:59:34');
+(1, '4154252', 'Hyundai', 'image/sponsors/o7A35gWwr5Tp1FBNrX2BMhhRY70IQcOFbTosRoc1.svg', 'Hyundai España como Sponsor', 1, 1, '2023-04-28 04:22:35', '2023-04-28 04:22:35'),
+(2, '7894', 'BridgeStone Ibérica', 'image/sponsors/wFybQIPd6NwQENabmkUF8ZpgGTiO2eTJQNMal9CZ.png', 'Carrer dels Arbres', 1, 1, '2023-04-28 04:23:33', '2023-04-28 04:23:33'),
+(3, '7498', 'Citroën SP', 'image/sponsors/d55oZ7gRFniYlpiK8ubhK3Jzf3j266Pa2vdYKMjj.png', 'Calle Ibérica', 1, 1, '2023-04-28 04:23:56', '2023-04-28 04:57:15'),
+(4, '85263', 'Bimbo Ibérica', 'image/sponsors/DIOCJUPK4Y08wqXSIrjJpYilmD2c9Sw6N1DfrIDK.png', 'Calle Concordia', 1, 1, '2023-04-28 04:24:33', '2023-04-28 04:24:33'),
+(5, '96321', 'Bergamont SP', 'image/sponsors/nuYejogOZG8ofar5mjm2ZqlgI8mcXm1CDRI8nUkF.png', 'Avenida Augusta', 1, 1, '2023-04-28 04:25:02', '2023-04-28 04:25:02');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `transactions`
+--
+
+CREATE TABLE `transactions` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `race_id` int(11) NOT NULL,
+  `insurance_id` int(11) NOT NULL,
+  `amount` double(8,2) NOT NULL,
+  `is_paid` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `transactions`
+--
+
+INSERT INTO `transactions` (`id`, `token`, `user_id`, `race_id`, `insurance_id`, `amount`, `is_paid`, `created_at`, `updated_at`) VALUES
+(1, 'Bzhx2VZZQehrcVjmiKf2NZf77YZPXiQa', 2, 5, 3, 43.00, 0, NULL, NULL),
+(2, 'pN4rJQa6AA46xyZhz1LY8UBjSSbBaO4U', 2, 6, 4, 40.00, 0, NULL, NULL),
+(3, 'zaXRBjv9ymjAHGb3aV4WbLG7mefyFbIM', 3, 1, 7, 3023.00, 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -248,7 +348,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `dni`, `name`, `sex`, `age`, `address`, `role`, `birth_date`, `skill`, `federate_number`, `insurance`, `email`, `password`, `remember_token`, `created_at`, `updated_at`, `email_verified_at`) VALUES
-(28, '1234', 'admin', 'male', 21, 'admin', 1, '2002-01-01', 'open', NULL, NULL, 'admin@gmail.com', '$2y$10$v6xNqqhb1jcW5rXdqVItxeBEcNsjmSh6QsEVNzx4DHKp4jW5mTaCS', NULL, '2023-03-10 08:13:17', '2023-03-10 08:13:17', NULL);
+(1, '1234', 'admin', 'male', 23, 'admin', 1, '2000-02-20', 'pro', NULL, NULL, 'admin@gmail.com', '$2y$10$W/wBDOOOUicCxnmiCTWOH.5IJ8twPqlkxxqbm4WgtqsY2J6QwAIF.', NULL, '2023-04-28 04:11:56', '2023-04-28 04:11:56', NULL),
+(2, '48133467X', 'Gerard', 'male', 21, 'Nelson Mandela', 0, '2002-03-20', 'pro', NULL, NULL, 'gerard@gmail.com', '$2y$10$nk4Dq3/tfTv2BvBKmT8hkeykS02FtKVpp35fUuFFQ8mOVMobKVeh.', NULL, '2023-04-28 04:29:10', '2023-04-28 04:29:10', NULL),
+(3, '123321', 'Olga', 'female', 32, 'Nelson Mandela', 0, '1990-09-17', 'pro', NULL, NULL, 'olga@gmail.com', '$2y$10$dvvQ7o8OXhaxGa3Mp0kKmeJtwRbLkCWsSODG2.yeJl8bSvsSRx4zW', NULL, '2023-04-28 05:19:15', '2023-04-28 05:19:15', NULL);
 
 --
 -- Índices para tablas volcadas
@@ -265,6 +367,12 @@ ALTER TABLE `insurances`
 -- Indices de la tabla `migrations`
 --
 ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `payments`
+--
+ALTER TABLE `payments`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -321,6 +429,12 @@ ALTER TABLE `sponsors`
   ADD UNIQUE KEY `sponsors_cif_unique` (`cif`);
 
 --
+-- Indices de la tabla `transactions`
+--
+ALTER TABLE `transactions`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `users`
 --
 ALTER TABLE `users`
@@ -336,13 +450,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `insurances`
 --
 ALTER TABLE `insurances`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT de la tabla `payments`
+--
+ALTER TABLE `payments`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `personal_access_tokens`
@@ -360,37 +480,43 @@ ALTER TABLE `photos_race`
 -- AUTO_INCREMENT de la tabla `races`
 --
 ALTER TABLE `races`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `race_insurance`
 --
 ALTER TABLE `race_insurance`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `runner_number`
 --
 ALTER TABLE `runner_number`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `sponsored`
 --
 ALTER TABLE `sponsored`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `sponsors`
 --
 ALTER TABLE `sponsors`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `transactions`
+--
+ALTER TABLE `transactions`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Restricciones para tablas volcadas
