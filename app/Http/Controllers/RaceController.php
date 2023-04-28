@@ -251,9 +251,9 @@ class RaceController extends Controller
             'number'=>$number,
         ];
 
-        // $pdf = PDF::loadView('admin.race.dorsalpdf',$data)->setOptions(['defaultFont' => 'sans-serif']);
-        // return $pdf->download('pdf_file.pdf');
-        return view('admin.race.dorsalpdf',$data);
+        $pdf = PDF::loadView('admin.race.dorsalpdf',$data)->setOptions(['defaultFont' => 'sans-serif', 'isRemoteEnabled' => true]);
+        return $pdf->download($race->name.'DorsalNum'.$number.'.pdf');
+        // return view('admin.race.dorsalpdf',$data);
 
     }
 
